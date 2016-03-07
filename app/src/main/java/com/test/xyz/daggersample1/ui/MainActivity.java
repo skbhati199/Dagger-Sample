@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             Snackbar mySnackbar = Snackbar.make( this.findViewById(R.id.activity_main_container),
                     greetMessage,
-                    Snackbar.LENGTH_LONG);
+                    Snackbar.LENGTH_INDEFINITE);
 
             mySnackbar.show();
         }

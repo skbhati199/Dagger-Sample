@@ -1,9 +1,6 @@
 package com.test.xyz.daggersample1.service.di;
 
 import android.app.Application;
-
-import com.test.xyz.daggersample1.service.api.HelloService;
-import com.test.xyz.daggersample1.service.impl.HelloServiceManager;
 import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
@@ -20,11 +17,5 @@ public class MainModule {
     @Singleton
     protected Application provideApplication() {
         return app;
-    }
-
-    @Provides
-    @Singleton
-    HelloService provideHelloService() {
-        return new HelloServiceManager();
     }
 }

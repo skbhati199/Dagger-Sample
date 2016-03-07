@@ -7,15 +7,14 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {MainModule.class})
-public interface DaggerGraphComponent {
-    void inject(MainActivity mainActivity);
+@Component(modules = {MainModule.class, ServiceModule.class})
+public interface DaggerGraphComponent extends DaggerGraph {
 
     static final class Initializer {
         private Initializer() {
         }
 
-        public static DaggerGraphComponent init(DaggerApplication app) {
+        public static DaggerGraph init(DaggerApplication app) {
             return DaggerDaggerGraphComponent.builder()
                                              .mainModule(new MainModule(app))
                                              .build();

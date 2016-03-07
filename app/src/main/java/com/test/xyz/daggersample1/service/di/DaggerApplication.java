@@ -3,7 +3,7 @@ package com.test.xyz.daggersample1.service.di;
 import android.app.Application;
 
 public class DaggerApplication extends Application {
-    private static DaggerGraphComponent graph;
+    private static DaggerGraph graph;
     private static DaggerApplication instance;
 
     @Override
@@ -13,7 +13,7 @@ public class DaggerApplication extends Application {
         buildComponentGraph();
     }
 
-    public static DaggerGraphComponent component() {
+    public static DaggerGraph component() {
         return graph;
     }
 

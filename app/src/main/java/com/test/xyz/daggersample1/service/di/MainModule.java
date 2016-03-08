@@ -1,6 +1,8 @@
 package com.test.xyz.daggersample1.service.di;
 
 import android.app.Application;
+import android.content.res.Resources;
+
 import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
@@ -17,5 +19,12 @@ public class MainModule {
     @Singleton
     protected Application provideApplication() {
         return app;
+    }
+
+
+    @Provides
+    @Singleton
+    protected Resources provideResources() {
+        return app.getResources();
     }
 }

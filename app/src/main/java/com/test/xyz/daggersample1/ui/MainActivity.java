@@ -1,5 +1,6 @@
 package com.test.xyz.daggersample1.ui;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @InjectView(R.id.greet)
     Button greetButton;
+
+    @Inject
+    Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +76,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.greet) {
-            String greetMessage = helloService.greet(userNameText.getText().toString());
+            String userName = userNameText.getText().toString();
+
+            if (userName == null || (userName != null && userName.trim().equals(""))) {
+                userNameText.setError(resources.getString(R.string.username_missing_error_message));
+                return;
+            }
+
+            String greetMessage = helloService.greet(userName);
 
             Snackbar mySnackbar = Snackbar.make( this.findViewById(R.id.activity_main_container),
                     greetMessage,

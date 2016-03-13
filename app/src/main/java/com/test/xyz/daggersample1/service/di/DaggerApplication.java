@@ -20,4 +20,11 @@ public class DaggerApplication extends Application {
     public static void buildComponentGraph() {
         graph = DaggerGraphComponent.Initializer.init(instance);
     }
+
+    /**
+     * Visible only for testing purposes.
+     */
+    public void setTestComponent(DaggerGraph testingComponent) {
+        graph = testingComponent;
+    }
 }

@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @InjectView(R.id.greet)
     Button greetButton;
 
+    @InjectView(R.id.resultView)
+    TextView resultView;
+
     @Inject
     Resources resources;
 
@@ -85,11 +88,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             String greetMessage = helloService.greet(userName);
 
-            Snackbar mySnackbar = Snackbar.make( this.findViewById(R.id.activity_main_container),
-                    greetMessage,
-                    Snackbar.LENGTH_INDEFINITE);
 
-            mySnackbar.show();
+            resultView.setText(greetMessage);
         }
     }
 }

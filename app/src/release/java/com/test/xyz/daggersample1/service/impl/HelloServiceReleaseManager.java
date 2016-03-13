@@ -6,6 +6,6 @@ public class HelloServiceReleaseManager implements HelloService {
 
     @Override
     public String greet(String userName) {
-        return "Hello " + userName + "! [Release]";
+        return "[Release] Hello " + userName + "!";
     }
 }

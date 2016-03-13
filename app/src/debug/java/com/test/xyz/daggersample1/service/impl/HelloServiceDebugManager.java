@@ -6,6 +6,6 @@ public class HelloServiceDebugManager implements HelloService {
 
     @Override
     public String greet(String userName) {
-        return "Hello " + userName + "! [Debug]";
+        return "[Debug] Hello " + userName + "!";
     }
 }

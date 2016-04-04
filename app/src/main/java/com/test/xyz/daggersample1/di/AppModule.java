@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample1.service.di;
+package com.test.xyz.daggersample1.di;
 
 import android.app.Application;
 import android.content.res.Resources;
@@ -8,10 +8,10 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class MainModule {
+public class AppModule {
     DaggerApplication app;
 
-    public MainModule(DaggerApplication application) {
+    public AppModule(DaggerApplication application) {
         app = application;
     }
 

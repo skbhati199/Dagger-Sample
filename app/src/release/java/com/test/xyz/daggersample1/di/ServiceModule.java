@@ -1,17 +1,16 @@
-package com.test.xyz.daggersample1.service.di;
-
-import android.app.Application;
+package com.test.xyz.daggersample1.di;
 
 import com.test.xyz.daggersample1.service.api.HelloService;
-import com.test.xyz.daggersample1.service.impl.HelloServiceManager;
+import com.test.xyz.daggersample1.service.api.WeatherService;
 import com.test.xyz.daggersample1.service.impl.HelloServiceReleaseManager;
+import com.test.xyz.daggersample1.service.impl.WeatherServiceManager;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 
-@Module
+@Module(includes = CommonModule.class)
 public class ServiceModule {
 
     @Provides

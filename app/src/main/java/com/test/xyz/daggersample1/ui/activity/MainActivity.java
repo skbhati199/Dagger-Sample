@@ -119,8 +119,6 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
 
     @Override
     public void showResult(final String result) {
-        System.out.println("result is " + result);
-
         resultView.setText(result);
     }
 
@@ -148,8 +146,6 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
 
     @Override
     public void onSuccess(final String data) {
-        System.out.println("onSuccess is " + data);
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -161,8 +157,6 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
 
     @Override
     public void onFailure(final String errorMessage) {
-        System.out.println("errorMessage is " + errorMessage);
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

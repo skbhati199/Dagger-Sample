@@ -32,7 +32,6 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
     private static String GREET_PREFIX = "[Test] Hello ";
@@ -54,8 +53,8 @@ public class MainActivityTest {
                     DaggerApplication app = (DaggerApplication) application;
 
                     AppComponent mTestAppComponent = DaggerMainActivityTest_TestAppComponent.builder()
-                                                                                            .appModule(new AppModule(app))
-                                                                                            .build();
+                            .appModule(new AppModule(app))
+                            .build();
 
                     app.setTestComponent(mTestAppComponent);
                 }

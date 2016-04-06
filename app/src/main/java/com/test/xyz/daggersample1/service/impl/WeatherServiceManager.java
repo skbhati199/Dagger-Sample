@@ -2,6 +2,7 @@ package com.test.xyz.daggersample1.service.impl;
 
 import android.util.Log;
 
+import com.test.xyz.daggersample1.service.api.ErrorMessages;
 import com.test.xyz.daggersample1.service.api.WeatherService;
 import com.test.xyz.daggersample1.service.exception.InvalidCityException;
 
@@ -21,13 +22,13 @@ public class WeatherServiceManager implements WeatherService {
         int temperature = 0;
 
         if (city == null) {
-            throw new RuntimeException("A city must be provided ...");
+            throw new RuntimeException(ErrorMessages.CITY_REQUIRED);
         }
 
         try {
             city = URLEncoder.encode(city, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("Invalid city provided ...");
+            throw new RuntimeException(ErrorMessages.INVALID_CITY_PROVIDED);
         }
 
         try {
@@ -52,23 +53,19 @@ public class WeatherServiceManager implements WeatherService {
                 sb.append(line);
             }
 
-            System.out.println("Returned response: " + sb);
-
             bufferedReader.close();
 
             String result = sb.toString();
 
-            int index1 = result.indexOf("\"temp\":");
+            int startIndex = result.indexOf("\"temp\":");
 
-            if (index1 == -1) {
-                throw new InvalidCityException("Invalid city provided ...");
+            if (startIndex == -1) {
+                throw new InvalidCityException(ErrorMessages.INVALID_CITY_PROVIDED);
             }
 
-            int index2 = result.indexOf(",", index1);
+            int endIndex = result.indexOf(",", startIndex);
 
-            temperature = Integer.parseInt(result.substring(index1 + 8, index2 - 1));
-
-            System.out.println("Returned temperature: " + temperature);
+            temperature = Integer.parseInt(result.substring(startIndex + 8, endIndex - 1));
         } catch (InvalidCityException ex) {
             throw ex;
         } catch (Exception ex) {

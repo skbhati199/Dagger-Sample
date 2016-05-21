@@ -1,7 +1,9 @@
-package com.test.xyz.daggersample1.di;
+package com.test.xyz.daggersample1.di.module;
 
 import android.app.Application;
 import android.content.res.Resources;
+
+import com.test.xyz.daggersample1.di.DaggerApplication;
 
 import javax.inject.Singleton;
 import dagger.Module;

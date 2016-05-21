@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample1.ui.presenter;
+package com.test.xyz.daggersample1.ui.presenter.main;
 
 public interface OnInfoCompletedListener {
     public void onUserNameValidationError(int messageID);

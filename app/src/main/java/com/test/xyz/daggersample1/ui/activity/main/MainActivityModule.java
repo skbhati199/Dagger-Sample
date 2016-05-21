@@ -1,10 +1,10 @@
-package com.test.xyz.daggersample1.ui.activity;
+package com.test.xyz.daggersample1.ui.activity.main;
 
-import com.test.xyz.daggersample1.di.ActivityScope;
+import com.test.xyz.daggersample1.di.scope.ActivityScope;
 import com.test.xyz.daggersample1.interactor.MainInteractor;
 import com.test.xyz.daggersample1.interactor.MainInteractorImpl;
-import com.test.xyz.daggersample1.ui.presenter.MainPresenter;
-import com.test.xyz.daggersample1.ui.presenter.MainPresenterImpl;
+import com.test.xyz.daggersample1.ui.presenter.main.MainPresenter;
+import com.test.xyz.daggersample1.ui.presenter.main.MainPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;

@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample1.di;
+package com.test.xyz.daggersample1.di.scope;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

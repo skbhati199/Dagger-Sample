@@ -70,6 +70,7 @@ public class WeatherServiceManager implements WeatherService {
             throw ex;
         } catch (Exception ex) {
             Log.e(TAG, ex.getMessage(), ex);
+            throw new RuntimeException(ex);
         }
 
         return temperature;

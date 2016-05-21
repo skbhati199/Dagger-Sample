@@ -5,13 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.test.xyz.daggersample1.di.AppComponent;
-import com.test.xyz.daggersample1.di.AppModule;
 import com.test.xyz.daggersample1.di.DaggerApplication;
+import com.test.xyz.daggersample1.di.component.AppComponent;
+import com.test.xyz.daggersample1.di.module.AppModule;
 import com.test.xyz.daggersample1.service.api.HelloService;
+import com.test.xyz.daggersample1.service.api.RepoListService;
 import com.test.xyz.daggersample1.service.api.WeatherService;
 import com.test.xyz.daggersample1.service.exception.InvalidCityException;
-import com.test.xyz.daggersample1.ui.activity.MainActivity;
+import com.test.xyz.daggersample1.ui.activity.main.MainActivity;
 import com.test.xyz.daggersample1.util.DaggerActivityTestRule;
 
 import org.junit.Rule;
@@ -32,6 +33,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
     private static String GREET_PREFIX = "[Test] Hello ";
@@ -89,6 +91,26 @@ public class MainActivityTest {
                 }
             };
         }
+
+        @Provides
+        @Singleton
+        RepoListService provideRepoListService() {
+            return new RepoListService() {
+
+                @Override
+                public String[] retrieveRepoList(String userName) {
+                    return new String[] {
+                            "Repo1",
+                            "Repo2"
+                    };
+                }
+
+                @Override
+                public String retrieveRepoItemDetails(String userName, String projectID) {
+                    return "Repo1 Details ...";
+                }
+            };
+        }
     }
 
     @Test
@@ -102,5 +124,4 @@ public class MainActivityTest {
 
         onView(withId(R.id.resultView)).check(matches(withText(MOCK_RESPONSE_MESSAGE)));
     }
-
 }

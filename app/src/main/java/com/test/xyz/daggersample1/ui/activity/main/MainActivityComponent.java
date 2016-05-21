@@ -1,9 +1,7 @@
-package com.test.xyz.daggersample1.ui.activity;
+package com.test.xyz.daggersample1.ui.activity.main;
 
-import com.test.xyz.daggersample1.di.ActivityScope;
-import com.test.xyz.daggersample1.di.AppComponent;
+import com.test.xyz.daggersample1.di.scope.ActivityScope;
 
-import dagger.Component;
 import dagger.Subcomponent;
 
 @ActivityScope

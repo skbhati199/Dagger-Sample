@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.activity.main.MainActivity"
-    android:id="@+id/activity_main_container">
+    tools:context=".ui.activity.repodetails.RepoDetailsActivity"
+    android:id="@+id/activity_repo_details_container">
 
     <include layout="@layout/header" />
-    <include layout="@layout/content_main" />
+    <include layout="@layout/content_repodetails" />
 
 </android.support.design.widget.CoordinatorLayout>

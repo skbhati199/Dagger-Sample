@@ -1,8 +1,6 @@
-package com.test.xyz.daggersample1.ui.activity;
+package com.test.xyz.daggersample1.ui.activity.main;
 
-import com.test.xyz.daggersample1.ui.presenter.OnInfoCompletedListener;
-
-public interface MainView extends OnInfoCompletedListener {
+public interface MainView {
     public String getUserNameText();
     public String getCityText();
 
@@ -13,4 +11,5 @@ public interface MainView extends OnInfoCompletedListener {
     public void hideBusyIndicator();
 
     public void showResult(String result);
+    public void showError(String error);
 }

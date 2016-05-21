@@ -1,6 +1,8 @@
-package com.test.xyz.daggersample1.di;
+package com.test.xyz.daggersample1.di.module;
 
+import com.test.xyz.daggersample1.service.api.RepoListService;
 import com.test.xyz.daggersample1.service.api.WeatherService;
+import com.test.xyz.daggersample1.service.impl.RepoListServiceManager;
 import com.test.xyz.daggersample1.service.impl.WeatherServiceManager;
 
 import javax.inject.Singleton;
@@ -15,5 +17,11 @@ public class CommonModule {
     @Singleton
     WeatherService provideWeatherService() {
         return new WeatherServiceManager();
+    }
+
+    @Provides
+    @Singleton
+    RepoListService provideRepoListService() {
+        return new RepoListServiceManager();
     }
 }

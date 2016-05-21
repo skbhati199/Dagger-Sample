@@ -1,9 +1,6 @@
-package com.test.xyz.daggersample1.ui.activity;
+package com.test.xyz.daggersample1.ui.activity.main;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.content.Intent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,14 +10,17 @@ import android.widget.TextView;
 
 import com.test.xyz.daggersample1.R;
 import com.test.xyz.daggersample1.di.DaggerApplication;
-import com.test.xyz.daggersample1.ui.presenter.MainPresenter;
+import com.test.xyz.daggersample1.ui.activity.base.BaseActivity;
+import com.test.xyz.daggersample1.ui.activity.repolist.RepoListActivity;
+import com.test.xyz.daggersample1.ui.presenter.main.MainPresenter;
+import com.test.xyz.daggersample1.ui.util.CommonUtils;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends AppCompatActivity implements MainView, View.OnClickListener {
+public class MainActivity extends BaseActivity implements MainView, View.OnClickListener {
 
     @Inject
     MainPresenter presenter;
@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     @InjectView(R.id.btnShowInfo)
     Button showInfoButton;
 
+    @InjectView(R.id.btnShowRepoList)
+    Button showRepoButton;
+
     @InjectView(R.id.resultView)
     TextView resultView;
 
@@ -41,8 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     ProgressBar progressBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreateActivity() {
         setContentView(R.layout.activity_main);
 
         ButterKnife.inject(this);
@@ -52,27 +54,14 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
                 .plus(new MainActivityModule(this))
                 .inject(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         showInfoButton.setOnClickListener(this);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        showRepoButton.setOnClickListener(this);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -84,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     public void onClick(View v) {
         if (v.getId() == R.id.btnShowInfo) {
             presenter.requestInformation();
+        } else if (v.getId() == R.id.btnShowRepoList) {
+            Intent intent = new Intent(this, RepoListActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -98,70 +90,63 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     }
 
     @Override
-    public void showUserNameError(int messageId) {
-        userNameText.setError(getString(messageId));
+    public void showUserNameError(final int messageId) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                userNameText.setError(getString(messageId));
+            }
+        });
     }
 
     @Override
-    public void showCityNameError(int messageId) {
-        cityText.setError(getString(messageId));
+    public void showCityNameError(final int messageId) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                cityText.setError(getString(messageId));
+            }
+        });
+
     }
 
     @Override
     public void showBusyIndicator() {
-        progressBar.setVisibility(View.VISIBLE);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
     public void hideBusyIndicator() {
-        progressBar.setVisibility(View.GONE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
     public void showResult(final String result) {
-        resultView.setText(result);
-    }
-
-    @Override
-    public void onUserNameValidationError(final int messageID) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                hideBusyIndicator();
-                showUserNameError(messageID);
+                resultView.setText(result);
             }
         });
     }
 
     @Override
-    public void onCityValidationError(final int messageID) {
+    public void showError(final String error) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                hideBusyIndicator();
-                showCityNameError(messageID);
-            }
-        });
-    }
-
-    @Override
-    public void onSuccess(final String data) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                hideBusyIndicator();
-                showResult(data);
-            }
-        });
-    }
-
-    @Override
-    public void onFailure(final String errorMessage) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                hideBusyIndicator();
-                showResult(errorMessage);
+                CommonUtils.showAlert(MainActivity.this, error);
             }
         });
     }

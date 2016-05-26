@@ -20,9 +20,6 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
     @Inject
     RepoDetailsPresenter presenter;
 
-    //@Inject
-    //RepoListService repoListService;
-
     @InjectView(R.id.repoDetails)
     TextView repoDetails;
 

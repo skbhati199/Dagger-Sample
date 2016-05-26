@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample1.ui.activity.main;
+package com.test.xyz.daggersample1.ui.fragment.main;
 
 import com.test.xyz.daggersample1.di.scope.ActivityScope;
 import com.test.xyz.daggersample1.interactor.MainInteractor;
@@ -10,11 +10,11 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class MainActivityModule {
+public class MainFragmentModule {
 
     public final MainView view;
 
-    public MainActivityModule(MainView view) {
+    public MainFragmentModule(MainView view) {
         this.view = view;
     }
 

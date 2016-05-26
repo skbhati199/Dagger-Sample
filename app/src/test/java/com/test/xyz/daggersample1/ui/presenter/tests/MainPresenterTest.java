@@ -1,8 +1,5 @@
 package com.test.xyz.daggersample1.ui.presenter.tests;
 
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.test.xyz.daggersample1.R;
 import com.test.xyz.daggersample1.di.DaggerApplication;
 import com.test.xyz.daggersample1.di.ServiceModule;
@@ -10,14 +7,8 @@ import com.test.xyz.daggersample1.di.component.AppComponent;
 import com.test.xyz.daggersample1.di.module.AppModule;
 import com.test.xyz.daggersample1.di.scope.ActivityScope;
 import com.test.xyz.daggersample1.interactor.MainInteractor;
-import com.test.xyz.daggersample1.service.exception.InvalidCityException;
-import com.test.xyz.daggersample1.ui.activity.main.MainActivityComponent;
-import com.test.xyz.daggersample1.ui.activity.main.MainView;
-import com.test.xyz.daggersample1.ui.presenter.details.OnRepoDetailsCompletedListener;
-import com.test.xyz.daggersample1.ui.presenter.list.OnRepoListCompletedListener;
 import com.test.xyz.daggersample1.ui.presenter.main.MainPresenter;
 import com.test.xyz.daggersample1.ui.presenter.main.MainPresenterImpl;
-import com.test.xyz.daggersample1.ui.presenter.main.OnInfoCompletedListener;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,7 +26,6 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.Subcomponent;
 
-import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -142,7 +132,7 @@ public class MainPresenterTest {
     }
 
     /**
-     * Extending MainActivityComponent to support injecting MainActivityMockModule's objects in the test class ...
+     * Extending MainFragmentComponent to support injecting MainActivityMockModule's objects in the test class ...
      */
     @ActivityScope
     @Subcomponent(

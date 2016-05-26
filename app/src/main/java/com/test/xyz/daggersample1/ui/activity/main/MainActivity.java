@@ -1,153 +1,146 @@
 package com.test.xyz.daggersample1.ui.activity.main;
 
-import android.content.Intent;
+import android.content.pm.PackageInstaller;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.test.xyz.daggersample1.R;
-import com.test.xyz.daggersample1.di.DaggerApplication;
-import com.test.xyz.daggersample1.ui.activity.base.BaseActivity;
-import com.test.xyz.daggersample1.ui.activity.repolist.RepoListActivity;
-import com.test.xyz.daggersample1.ui.presenter.main.MainPresenter;
-import com.test.xyz.daggersample1.ui.util.CommonUtils;
+import com.test.xyz.daggersample1.ui.fragment.main.MainFragment;
+import com.test.xyz.daggersample1.ui.fragment.repolist.RepoListFragment;
+import com.test.xyz.daggersample1.ui.navdrawer.FragmentDrawer;
 
-import javax.inject.Inject;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+public class MainActivity extends ActionBarActivity implements FragmentDrawer.FragmentDrawerListener {
 
-public class MainActivity extends BaseActivity implements MainView, View.OnClickListener {
+    private static String TAG = MainActivity.class.getSimpleName();
 
-    @Inject
-    MainPresenter presenter;
+    private final int MAIN_FRAG = 0;
+    private final int REPO_LIST_FRAG = 1;
+    private final int FRAGMENT_COUNT = REPO_LIST_FRAG + 1;
+    private final String CURRENT_FRAGMENT = "currentFragment";
 
-    @InjectView(R.id.userNameText)
-    EditText userNameText;
+    private Toolbar mToolbar;
+    private FragmentDrawer drawerFragment;
+    private Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
 
-    @InjectView(R.id.cityText)
-    EditText cityText;
-
-    @InjectView(R.id.btnShowInfo)
-    Button showInfoButton;
-
-    @InjectView(R.id.btnShowRepoList)
-    Button showRepoButton;
-
-    @InjectView(R.id.resultView)
-    TextView resultView;
-
-    @InjectView(R.id.progress)
-    ProgressBar progressBar;
+    private int currentFragment = 0;
 
     @Override
-    protected void onCreateActivity() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ButterKnife.inject(this);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        DaggerApplication.get(this)
-                .getAppComponent()
-                .plus(new MainActivityModule(this))
-                .inject(this);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        showInfoButton.setOnClickListener(this);
-        showRepoButton.setOnClickListener(this);
+        drawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+        drawerFragment.setDrawerListener(this);
+
+        hideAllFragments();
+
+        // display the first navigation drawer view on app launch
+        if (savedInstanceState != null) {
+            currentFragment = savedInstanceState.getInt(CURRENT_FRAGMENT);
+        }
+
+        showFragment(currentFragment);
+    }
+
+    private void hideAllFragments() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragments[0] = fragmentManager.findFragmentById(R.id.main_frag);
+        fragments[1] = fragmentManager.findFragmentById(R.id.repolist_frag);
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        for (int i = 0; i < fragments.length; ++i) {
+            fragmentTransaction.hide(fragments[i]);
+        }
+
+        fragmentTransaction.commit();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
+
+        /*
+        if(id == R.id.action_search){
+            Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        */
 
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.btnShowInfo) {
-            presenter.requestInformation();
-        } else if (v.getId() == R.id.btnShowRepoList) {
-            Intent intent = new Intent(this, RepoListActivity.class);
-            startActivity(intent);
+    public void onDrawerItemSelected(View view, int position) {
+        showFragment(position);
+    }
+
+    private void showFragment(int fragmentIndex) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        String title = "";
+
+        switch (fragmentIndex) {
+            case MAIN_FRAG:
+                title = getString(R.string.nav_item_main);
+                break;
+            case REPO_LIST_FRAG:
+                title = getString(R.string.nav_item_repo_list);
+                break;
+            default:
+                break;
         }
-    }
 
-    @Override
-    public String getUserNameText() {
-        return userNameText.getText().toString();
-    }
-
-    @Override
-    public String getCityText() {
-        return cityText.getText().toString();
-    }
-
-    @Override
-    public void showUserNameError(final int messageId) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                userNameText.setError(getString(messageId));
+        for (int i = 0; i < fragments.length; i++) {
+            if (i == fragmentIndex) {
+                transaction.show(fragments[i]);
+            } else {
+                transaction.hide(fragments[i]);
             }
-        });
+        }
+
+        transaction.commit();
+        currentFragment = fragmentIndex;
+        getSupportActionBar().setTitle(title);
     }
 
     @Override
-    public void showCityNameError(final int messageId) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                cityText.setError(getString(messageId));
-            }
-        });
-
-    }
-
-    @Override
-    public void showBusyIndicator() {
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.VISIBLE);
-            }
-        });
-    }
-
-    @Override
-    public void hideBusyIndicator() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    @Override
-    public void showResult(final String result) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                resultView.setText(result);
-            }
-        });
-    }
-
-    @Override
-    public void showError(final String error) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                CommonUtils.showAlert(MainActivity.this, error);
-            }
-        });
+    public void onSaveInstanceState(Bundle savedState) {
+        savedState.putInt(CURRENT_FRAGMENT, currentFragment);
+        super.onSaveInstanceState(savedState);
     }
 }

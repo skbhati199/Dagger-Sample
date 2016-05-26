@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample1.ui.activity.main;
+package com.test.xyz.daggersample1.ui.fragment.main;
 
 public interface MainView {
     public String getUserNameText();

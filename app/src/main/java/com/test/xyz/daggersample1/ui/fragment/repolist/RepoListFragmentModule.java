@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample1.ui.activity.repolist;
+package com.test.xyz.daggersample1.ui.fragment.repolist;
 
 import com.test.xyz.daggersample1.di.scope.ActivityScope;
 import com.test.xyz.daggersample1.interactor.MainInteractor;
@@ -10,11 +10,11 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class RepoListActivityModule {
+public class RepoListFragmentModule {
 
     public final RepoListView view;
 
-    public RepoListActivityModule(RepoListView view) {
+    public RepoListFragmentModule(RepoListView view) {
         this.view = view;
     }
 

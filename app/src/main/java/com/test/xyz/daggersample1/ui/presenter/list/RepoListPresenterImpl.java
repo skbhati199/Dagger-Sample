@@ -1,7 +1,7 @@
 package com.test.xyz.daggersample1.ui.presenter.list;
 
 import com.test.xyz.daggersample1.interactor.MainInteractor;
-import com.test.xyz.daggersample1.ui.activity.repolist.RepoListView;
+import com.test.xyz.daggersample1.ui.fragment.repolist.RepoListView;
 
 import javax.inject.Inject;
 

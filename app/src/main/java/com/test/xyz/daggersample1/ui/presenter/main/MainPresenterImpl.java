@@ -1,7 +1,7 @@
 package com.test.xyz.daggersample1.ui.presenter.main;
 
 import com.test.xyz.daggersample1.interactor.MainInteractor;
-import com.test.xyz.daggersample1.ui.activity.main.MainView;
+import com.test.xyz.daggersample1.ui.fragment.main.MainView;
 
 import javax.inject.Inject;
 

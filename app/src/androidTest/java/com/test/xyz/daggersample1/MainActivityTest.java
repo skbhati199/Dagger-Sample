@@ -2,8 +2,14 @@ package com.test.xyz.daggersample1;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+import android.widget.ListView;
 
 import com.test.xyz.daggersample1.di.DaggerApplication;
 import com.test.xyz.daggersample1.di.component.AppComponent;
@@ -15,6 +21,9 @@ import com.test.xyz.daggersample1.service.exception.InvalidCityException;
 import com.test.xyz.daggersample1.ui.activity.main.MainActivity;
 import com.test.xyz.daggersample1.util.DaggerActivityTestRule;
 
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,14 +34,18 @@ import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.anything;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
@@ -43,7 +56,9 @@ public class MainActivityTest {
     private static String MOCK_GREETING_MSG = GREET_PREFIX + MOCK_NAME;
     private static String MOCK_WEATHER_MSG = "\nCurrent weather in " + MOCK_PLACE + " is " + MOCK_TEMPERATURE + "°F";
 
-    private static String MOCK_RESPONSE_MESSAGE = MOCK_GREETING_MSG + MOCK_WEATHER_MSG;
+    private static String MOCK_INFO_RESPONSE_MESSAGE = MOCK_GREETING_MSG + MOCK_WEATHER_MSG;
+    private static String MOCK_REPO_DETAILS_RESPONSE_MESSAGE = "Repo Details ...";
+
 
     private static String TAG = MainActivityTest.class.getName();
 
@@ -107,14 +122,14 @@ public class MainActivityTest {
 
                 @Override
                 public String retrieveRepoItemDetails(String userName, String projectID) {
-                    return "Repo1 Details ...";
+                    return MOCK_REPO_DETAILS_RESPONSE_MESSAGE;
                 }
             };
         }
     }
 
     @Test
-    public void greetButtonClicked() {
+    public void showInformationAction() {
         onView(withId(R.id.userNameText))
                 .perform(typeText(MOCK_NAME), closeSoftKeyboard());
 
@@ -122,6 +137,126 @@ public class MainActivityTest {
 
         onView(withId(R.id.btnShowInfo)).perform(click());
 
-        onView(withId(R.id.resultView)).check(matches(withText(MOCK_RESPONSE_MESSAGE)));
+        onView(withId(R.id.resultView)).check(matches(withText(MOCK_INFO_RESPONSE_MESSAGE)));
+    }
+
+    @Test
+    public void showRepoListAction() {
+        // Open settings button ...
+        //openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        //onView(withText(R.string.nav_item_repo_list)).perform(click());
+
+        // Open the navigation drawer ...
+        onView(withId(R.id.drawer_layout)).perform(actionOpenDrawer());
+
+        // Just give 1 second for the drawer layout to open ...
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Click on the navigation item repo list ...
+        onView(withText(R.string.nav_item_repo_list)).perform(click());
+
+        // Check if the list has two items ...
+        final int[] counts = new int[1];
+
+        onView(withId(R.id.repoList)).check(matches(new TypeSafeMatcher<View>() {
+            @Override
+            public boolean matchesSafely(View view) {
+                ListView listView = (ListView) view;
+
+                counts[0] = listView.getCount();
+
+                return true;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+
+            }
+        }));
+
+        onData(anything()).inAdapterView(withId(R.id.repoList)).atPosition(1).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void showRepoDetailsAction() {
+
+        // Open the navigation drawer ...
+        onView(withId(R.id.drawer_layout)).perform(actionOpenDrawer());
+
+        // Just give 1 second for the drawer layout to open ...
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Click on the navigation item repo list ...
+        onView(withText(R.string.nav_item_repo_list)).perform(click());
+
+        // Check if the list has two items ...
+        final int[] counts = new int[1];
+
+        onView(withId(R.id.repoList)).check(matches(new TypeSafeMatcher<View>() {
+            @Override
+            public boolean matchesSafely(View view) {
+                ListView listView = (ListView) view;
+
+                counts[0] = listView.getCount();
+
+                return true;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+
+            }
+        }));
+
+        onData(anything()).inAdapterView(withId(R.id.repoList)).atPosition(1).perform(click());
+
+        onView(withId(R.id.repoDetails)).check(matches(withText(MOCK_REPO_DETAILS_RESPONSE_MESSAGE)));
+    }
+
+    // This is a workaround to open navigation drawer since it is not supported OOB yet by Espresso!
+    private static ViewAction actionOpenDrawer() {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isAssignableFrom(DrawerLayout.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "open drawer";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                ((DrawerLayout) view).openDrawer(GravityCompat.START);
+            }
+        };
+    }
+
+    private static ViewAction actionCloseDrawer() {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isAssignableFrom(DrawerLayout.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "close drawer";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                ((DrawerLayout) view).closeDrawer(GravityCompat.START);
+            }
+        };
     }
 }

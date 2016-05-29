@@ -41,12 +41,12 @@ android {
             java.srcDirs = ['src/main/java']
         }
 
+        /*
         androidTest {
             java {
-                exclude '**/**'
+                exclude '**'
             }
-        }
-
+        }*/
 
         test {
             java {

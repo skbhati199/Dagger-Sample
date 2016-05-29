@@ -7,6 +7,8 @@ import com.test.xyz.daggersample1.di.module.AppModule;
 import com.test.xyz.daggersample1.di.scope.ActivityScope;
 import com.test.xyz.daggersample1.interactor.MainInteractor;
 import com.test.xyz.daggersample1.tests.common.TestConfig;
+import com.test.xyz.daggersample1.ui.fragment.main.MainFragmentComponent;
+import com.test.xyz.daggersample1.ui.fragment.main.MainFragmentModule;
 import com.test.xyz.daggersample1.ui.fragment.main.MainView;
 import com.test.xyz.daggersample1.ui.presenter.main.OnInfoCompletedListener;
 
@@ -52,7 +54,7 @@ public class MainInteractorTest {
                 .appModule(new AppModule(daggerApplication))
                 .build();
 
-        MainActivityTestComponent mainActivityTestComponent = testAppComponent.add(new MainActivityModule(mainView));
+        MainActivityTestComponent mainActivityTestComponent = testAppComponent.add(new MainFragmentModule(mainView));
 
         mainActivityTestComponent.inject(this);
     }
@@ -102,15 +104,15 @@ public class MainInteractorTest {
 
     @ActivityScope
     @Subcomponent(
-            modules = {MainActivityModule.class}
+            modules = {MainFragmentModule.class}
     )
-    public interface MainActivityTestComponent extends MainActivityComponent {
+    public interface MainActivityTestComponent extends MainFragmentComponent {
         void inject(MainInteractorTest mainPresenterTest);
     }
 
     @Singleton
     @Component(modules = {AppModule.class, ServiceModule.class})
     public interface TestAppComponent extends AppComponent {
-        MainActivityTestComponent add(MainActivityModule module);
+        MainActivityTestComponent add(MainFragmentModule module);
     }
 }

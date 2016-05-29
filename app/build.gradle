@@ -48,11 +48,13 @@ android {
             }
         }*/
 
+        /*
         test {
             java {
-                exclude '**/**'
+                exclude '**'
             }
         }
+       */
 
     }
 }

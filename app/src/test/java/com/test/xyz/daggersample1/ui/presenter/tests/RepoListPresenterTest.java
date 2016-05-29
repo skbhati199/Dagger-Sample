@@ -6,6 +6,8 @@ import com.test.xyz.daggersample1.di.component.AppComponent;
 import com.test.xyz.daggersample1.di.module.AppModule;
 import com.test.xyz.daggersample1.di.scope.ActivityScope;
 import com.test.xyz.daggersample1.interactor.MainInteractor;
+import com.test.xyz.daggersample1.ui.fragment.repolist.RepoListFragmentComponent;
+import com.test.xyz.daggersample1.ui.fragment.repolist.RepoListView;
 import com.test.xyz.daggersample1.ui.presenter.list.RepoListPresenter;
 import com.test.xyz.daggersample1.ui.presenter.list.RepoListPresenterImpl;
 
@@ -118,7 +120,7 @@ public class RepoListPresenterTest {
     @Subcomponent(
             modules = {RepoListActivityMockModule.class}
     )
-    public interface RepoListTestComponent extends RepoListActivityComponent {
+    public interface RepoListTestComponent extends RepoListFragmentComponent {
         void inject(RepoListPresenterTest repoListPresenterTest);
     }
 

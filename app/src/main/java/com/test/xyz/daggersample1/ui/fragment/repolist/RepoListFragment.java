@@ -3,19 +3,20 @@ package com.test.xyz.daggersample1.ui.fragment.repolist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.test.xyz.daggersample1.R;
 import com.test.xyz.daggersample1.di.DaggerApplication;
 import com.test.xyz.daggersample1.ui.activity.repodetails.RepoDetailsActivity;
 import com.test.xyz.daggersample1.ui.fragment.base.BaseFragment;
 import com.test.xyz.daggersample1.ui.presenter.list.RepoListPresenter;
+import com.test.xyz.daggersample1.ui.util.CommonConstants;
 import com.test.xyz.daggersample1.ui.util.CommonUtils;
 
 import javax.inject.Inject;
@@ -31,6 +32,9 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
 
     @InjectView(R.id.repoList)
     ListView repoListView;
+
+    @InjectView(R.id.noAvlRepos)
+    TextView noAvlRepos;
 
     @Nullable
     @Override
@@ -49,7 +53,7 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
                 .plus(new RepoListFragmentModule(this))
                 .inject(this);
 
-        presenter.requestRepoList("hazems");
+        presenter.requestRepoList(CommonConstants.DEFAULT_USER_NAME);
     }
 
     @Override
@@ -58,25 +62,8 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
 
             @Override
             public void run() {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(RepoListFragment.this.getActivity(),
-                        android.R.layout.simple_list_item_1, android.R.id.text1, values);
-
-                repoListView.setAdapter(adapter);
-
-                repoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view,
-                                                    int position, long id) {
-
-                                Intent intent = new Intent(RepoListFragment.this.getActivity(), RepoDetailsActivity.class);
-
-                                startActivity(intent);
-                            }
-
-                });
+                displayResults(values);
             }
-
-
         });
     }
 
@@ -85,8 +72,32 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
         this.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CommonUtils.showAlert(RepoListFragment.this.getActivity(), errorMessage);
+                CommonUtils.showToastMessage(RepoListFragment.this.getActivity(), errorMessage);
+                displayResults(new String[]{});
             }
+        });
+    }
+
+    private void displayResults(final String[] values) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(RepoListFragment.this.getActivity(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+        repoListView.setAdapter(adapter);
+        repoListView.setEmptyView(noAvlRepos);
+
+        repoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                int itemPosition = position;
+                Intent intent = new Intent(RepoListFragment.this.getActivity(), RepoDetailsActivity.class);
+
+                intent.putExtra(CommonConstants.REPO_DESC, values[itemPosition]);
+
+                startActivity(intent);
+            }
+
         });
     }
 }

@@ -1,5 +1,6 @@
 package com.test.xyz.daggersample1.ui.activity.base;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
+
+    ProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,5 +50,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startProgress() {
+        mDialog = new ProgressDialog(this);
+
+        mDialog.setMessage(getString(R.string.please_wait));
+        mDialog.setCancelable(false);
+        mDialog.show();
+    }
+
+    public void endProgress() {
+        if (mDialog != null) {
+            mDialog.hide();
+        }
     }
 }

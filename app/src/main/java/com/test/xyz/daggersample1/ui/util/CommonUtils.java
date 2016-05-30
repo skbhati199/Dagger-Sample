@@ -3,6 +3,7 @@ package com.test.xyz.daggersample1.ui.util;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
 public class CommonUtils {
 
@@ -19,5 +20,9 @@ public class CommonUtils {
                 });
 
         alertDialog.show();
+    }
+
+    public static void showToastMessage(Activity activity, String message) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
 }

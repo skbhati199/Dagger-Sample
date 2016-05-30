@@ -1,5 +1,6 @@
 package com.test.xyz.daggersample1.ui.activity.repodetails;
 
+import android.content.Intent;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -7,6 +8,7 @@ import com.test.xyz.daggersample1.R;
 import com.test.xyz.daggersample1.di.DaggerApplication;
 import com.test.xyz.daggersample1.ui.activity.base.BaseActivity;
 import com.test.xyz.daggersample1.ui.presenter.details.RepoDetailsPresenter;
+import com.test.xyz.daggersample1.ui.util.CommonConstants;
 import com.test.xyz.daggersample1.ui.util.CommonUtils;
 
 import javax.inject.Inject;
@@ -23,6 +25,11 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
     @InjectView(R.id.repoDetails)
     TextView repoDetails;
 
+    @InjectView(R.id.repoTitle)
+    TextView repoTitle;
+
+    String repoItemTitle = "";
+
     @Override
     protected void onCreateActivity() {
         setContentView(R.layout.activity_repodetails);
@@ -35,13 +42,24 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
                                    .plus(new RepoDetailsActivityModule(this))
                                    .inject(this);
 
+        startProgress();
 
-        presenter.requestRepoDetails("hazems", "test");
+        Intent intent = getIntent();
+        repoItemTitle = intent.getStringExtra(CommonConstants.REPO_DESC);
+
+        presenter.requestRepoDetails(CommonConstants.DEFAULT_USER_NAME, repoItemTitle);
     }
 
     @Override
-    public void showRepoDetails(String data) {
-        repoDetails.setText(data);
+    public void showRepoDetails(final String description) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                endProgress();
+                repoTitle.setText(repoItemTitle);
+                repoDetails.setText(description);
+            }
+        });
     }
 
     @Override
@@ -49,7 +67,9 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CommonUtils.showAlert(RepoDetailsActivity.this, errorMessage);
+                endProgress();
+                CommonUtils.showToastMessage(RepoDetailsActivity.this, errorMessage);
+                repoDetails.setText(R.string.repo_details_ret_error);
             }
         });
     }

@@ -62,7 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void endProgress() {
         if (mDialog != null) {
-            mDialog.hide();
+            mDialog.dismiss();
         }
     }
 }

@@ -73,4 +73,16 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
             }
         });
     }
+
+    @Override
+    protected void onPause() {
+        // All dialogs must be closed when activity is paused to avoid leakage ...
+        // Reference: http://stackoverflow.com/questions/2850573/activity-has-leaked-window-that-was-originally-added
+        closeAllDialogs();
+        super.onPause();
+    }
+
+    private void closeAllDialogs() {
+        endProgress();
+    }
 }

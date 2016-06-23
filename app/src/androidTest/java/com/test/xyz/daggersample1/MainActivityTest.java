@@ -27,6 +27,10 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import rx.Observable;
+
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Singleton;
 
@@ -113,16 +117,18 @@ public class MainActivityTest {
             return new RepoListService() {
 
                 @Override
-                public String[] retrieveRepoList(String userName) {
-                    return new String[] {
-                            "Repo1",
-                            "Repo2"
-                    };
+                public Observable<List<String>> retrieveRepoList(String userName) {
+                    List<String> repoList = Arrays.asList(new String[] {
+                                    "Repo1",
+                                    "Repo2"
+                            });
+
+                    return Observable.just(repoList);
                 }
 
                 @Override
-                public String retrieveRepoItemDetails(String userName, String projectID) {
-                    return MOCK_REPO_DETAILS_RESPONSE_MESSAGE;
+                public Observable<String> retrieveRepoItemDetails(String userName, String projectID) {
+                    return Observable.just(MOCK_REPO_DETAILS_RESPONSE_MESSAGE);
                 }
             };
         }

@@ -8,6 +8,9 @@ import com.test.xyz.daggersample1.ui.presenter.details.OnRepoDetailsCompletedLis
 import com.test.xyz.daggersample1.ui.presenter.list.OnRepoListCompletedListener;
 import com.test.xyz.daggersample1.ui.presenter.main.OnInfoCompletedListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.inject.Inject;
 
 /**
@@ -59,7 +62,7 @@ class MainInteractorMockImpl implements MainInteractor {
                 "Android Example List View"
         };
 
-        listener.onRepoListRetrievalSuccess(values);
+        listener.onRepoListRetrievalSuccess(Arrays.asList(values));
     }
 
     @Override

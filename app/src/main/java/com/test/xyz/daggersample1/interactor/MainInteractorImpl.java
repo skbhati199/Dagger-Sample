@@ -12,7 +12,11 @@ import com.test.xyz.daggersample1.ui.presenter.details.OnRepoDetailsCompletedLis
 import com.test.xyz.daggersample1.ui.presenter.list.OnRepoListCompletedListener;
 import com.test.xyz.daggersample1.ui.presenter.main.OnInfoCompletedListener;
 
+import java.util.List;
+
 import javax.inject.Inject;
+
+import rx.Observer;
 
 public class MainInteractorImpl implements MainInteractor {
     private static final String TAG = MainInteractorImpl.class.getName();
@@ -73,22 +77,22 @@ public class MainInteractorImpl implements MainInteractor {
             return;
         }
 
-        Thread thread = new Thread(new Runnable() {
+        repoListService.retrieveRepoList(userName).subscribe(new Observer<List<String>>() {
+            @Override
+            public void onCompleted() {
+            }
 
             @Override
-            public void run() {
-                try {
-                    String[] values = repoListService.retrieveRepoList(userName);
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                listener.onRepoListRetrievalFailure("Unable to get repo items ...");
+            }
 
-                    listener.onRepoListRetrievalSuccess(values);
-                } catch (Exception ex) {
-                    listener.onRepoListRetrievalFailure("Unable to get repo items ...");
-                    Log.e(TAG, ex.getMessage(), ex);
-                }
+            @Override
+            public void onNext(List<String> values) {
+                listener.onRepoListRetrievalSuccess(values);
             }
         });
-
-        thread.start();
     }
 
     @Override
@@ -98,21 +102,21 @@ public class MainInteractorImpl implements MainInteractor {
             return;
         }
 
-        Thread thread = new Thread(new Runnable() {
+        repoListService.retrieveRepoItemDetails(userName, projectID).subscribe(new Observer<String>() {
+            @Override
+            public void onCompleted() {
+            }
 
             @Override
-            public void run() {
-                try {
-                    String values = repoListService.retrieveRepoItemDetails(userName, projectID);
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                listener.onRepoDetailsRetrievalFailure("Unable to get repo item details ...");
+            }
 
-                    listener.onRepoDetailsRetrievalSuccess(values);
-                } catch (Exception ex) {
-                    listener.onRepoDetailsRetrievalFailure("Unable to get repo items ...");
-                    Log.e(TAG, ex.getMessage(), ex);
-                }
+            @Override
+            public void onNext(String value) {
+                listener.onRepoDetailsRetrievalSuccess(value);
             }
         });
-
-        thread.start();
     }
 }

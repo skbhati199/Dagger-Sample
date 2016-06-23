@@ -17,10 +17,13 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import rx.Observer;
 
 @RunWith(RobolectricTestRunner.class)
 public class ServicesTest {
@@ -68,9 +71,22 @@ public class ServicesTest {
     @Test
     public void testRepoListService() {
         try {
-            String[] repoList = repoListService.retrieveRepoList("hazems");
+            repoListService.retrieveRepoList("hazems").subscribe(new Observer<List<String>>() {
+                @Override
+                public void onCompleted() {
+                }
 
-            Assert.assertTrue(repoList.length >= 0);
+                @Override
+                public void onError(Throwable e) {
+                    Assert.fail("Unable to get repos now !!!");
+                }
+
+                @Override
+                public void onNext(List<String> strings) {
+                    Assert.assertTrue(strings.size() >= 0);
+                }
+            });
+
         } catch (Exception e) {
             Assert.fail("Unable to get repos now !!!");
         }

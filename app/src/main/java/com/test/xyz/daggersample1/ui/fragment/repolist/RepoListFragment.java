@@ -2,6 +2,7 @@ package com.test.xyz.daggersample1.ui.fragment.repolist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,12 @@ import com.test.xyz.daggersample1.ui.fragment.base.BaseFragment;
 import com.test.xyz.daggersample1.ui.presenter.list.RepoListPresenter;
 import com.test.xyz.daggersample1.ui.util.CommonConstants;
 import com.test.xyz.daggersample1.ui.util.CommonUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import javax.inject.Inject;
 
@@ -57,7 +64,7 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     }
 
     @Override
-    public void showRepoList(final String[] values) {
+    public void showRepoList(final List<String> values) {
         this.getActivity().runOnUiThread(new Runnable() {
 
             @Override
@@ -73,12 +80,12 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
             @Override
             public void run() {
                 CommonUtils.showToastMessage(RepoListFragment.this.getActivity(), errorMessage);
-                displayResults(new String[]{});
+                displayResults(new ArrayList<String>(){});
             }
         });
     }
 
-    private void displayResults(final String[] values) {
+    private void displayResults(final List<String> values) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(RepoListFragment.this.getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
@@ -93,7 +100,7 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
                 int itemPosition = position;
                 Intent intent = new Intent(RepoListFragment.this.getActivity(), RepoDetailsActivity.class);
 
-                intent.putExtra(CommonConstants.REPO_DESC, values[itemPosition]);
+                intent.putExtra(CommonConstants.REPO_DESC, values.get(itemPosition));
 
                 startActivity(intent);
             }

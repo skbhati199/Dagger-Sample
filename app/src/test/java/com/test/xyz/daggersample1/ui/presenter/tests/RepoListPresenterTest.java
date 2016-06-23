@@ -20,6 +20,8 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -70,7 +72,7 @@ public class RepoListPresenterTest {
     public void testGetRepoList() throws Exception {
         repoListPresenter.requestRepoList(USER_NAME);
 
-        verify(repoListView, times(1)).showRepoList(Matchers.any(String[].class));
+        verify(repoListView, times(1)).showRepoList(Matchers.any(List.class));
         verify(repoListView, never()).showError(Matchers.any(String.class));
     }
 
@@ -78,7 +80,7 @@ public class RepoListPresenterTest {
     public void testGetRepoListWithoutUserName() throws Exception {
         repoListPresenter.requestRepoList("");
 
-        verify(repoListView, never()).showRepoList(Matchers.any(String[].class));
+        verify(repoListView, never()).showRepoList(Matchers.any(List.class));
         verify(repoListView, times(1)).showError(Matchers.any(String.class));
     }
 

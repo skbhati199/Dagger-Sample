@@ -7,6 +7,7 @@ import com.test.xyz.daggersample1.service.api.GithubHttpService;
 import com.test.xyz.daggersample1.service.api.RepoListService;
 import com.test.xyz.daggersample1.service.api.model.Repo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -14,6 +15,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.functions.Func2;
+import rx.schedulers.Schedulers;
 
 public class RepoListServiceManager implements RepoListService {
     private static final String TAG = RepoListServiceManager.class.getName();
@@ -31,43 +37,39 @@ public class RepoListServiceManager implements RepoListService {
         service = retrofit.create(GithubHttpService.class);
     }
 
-    public String[] retrieveRepoList(String userName) {
-        String[] repos = null;
+    public Observable<List<String>> retrieveRepoList(String userName) {
 
-        Call<List<Repo>> repoListCall = service.getRepoList(userName);
+        // Can be used for making some mapping and specifying execution style ...
+        Observable<List<String>> result = service.getRepoList(userName)
+                .map(new Func1<List<Repo>, List<String>>() {
+                    @Override
+                    public List<String> call(List<Repo> repoList) {
+                        List<String> repos = new ArrayList<String>();
 
-        try {
-            Response<List<Repo>> repoListResponse = repoListCall.execute();
+                        for (Repo repo : repoList) {
+                            repos.add(repo.name);
+                        }
 
-            List<Repo> repoList = repoListResponse.body();
-            repos = new String[repoList.size()];
-            int i = 0;
+                        return repos;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
 
-            for (Repo repo : repoList) {
-                repos[i++] = repo.name;
-            }
-
-            Log.d(TAG, repos.length + "");
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-
-        return repos;
+        return result;
     }
 
-    public String retrieveRepoItemDetails(String userName, String projectID) {
-        Call<Repo> repoCall = service.getRepoItemDetails(userName, projectID);
+    public Observable<String> retrieveRepoItemDetails(String userName, String projectID) {
+        Observable<String> repoCall = service.getRepoItemDetails(userName, projectID)
+                .map(new Func1<Repo, String>() {
+                    @Override
+                    public String call(Repo repo) {
+                        return repo.name;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
 
-        try {
-            Response<Repo> repoResponse = repoCall.execute();
-
-            Repo repo = repoResponse.body();
-
-            return repo.description;
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-
-        return "";
+        return repoCall;
     }
 }

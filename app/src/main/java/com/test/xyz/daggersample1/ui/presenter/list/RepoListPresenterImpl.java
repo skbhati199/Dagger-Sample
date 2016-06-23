@@ -3,6 +3,8 @@ package com.test.xyz.daggersample1.ui.presenter.list;
 import com.test.xyz.daggersample1.interactor.MainInteractor;
 import com.test.xyz.daggersample1.ui.fragment.repolist.RepoListView;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 public class RepoListPresenterImpl implements RepoListPresenter, OnRepoListCompletedListener {
@@ -21,7 +23,7 @@ public class RepoListPresenterImpl implements RepoListPresenter, OnRepoListCompl
     }
 
     @Override
-    public void onRepoListRetrievalSuccess(String[] data) {
+    public void onRepoListRetrievalSuccess(List<String> data) {
         repoListView.showRepoList(data);
     }
 

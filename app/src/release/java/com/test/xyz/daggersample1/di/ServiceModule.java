@@ -1,5 +1,6 @@
 package com.test.xyz.daggersample1.di;
 
+import com.test.xyz.daggersample1.di.module.CommonModule;
 import com.test.xyz.daggersample1.service.api.HelloService;
 import com.test.xyz.daggersample1.service.api.WeatherService;
 import com.test.xyz.daggersample1.service.impl.HelloServiceReleaseManager;

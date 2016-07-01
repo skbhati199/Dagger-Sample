@@ -61,15 +61,20 @@ public class ServicesTest {
 
     @Test
     public void testWeatherService() {
+        Assert.fail("Unable to get weather now !!!");
+        /*
         try {
             int temp = weatherService.getWeatherInfo(CITY);
         } catch (InvalidCityException e) {
             Assert.fail("Unable to get weather now !!!");
         }
+        */
     }
 
     @Test
     public void testRepoListService() {
+        Assert.fail("Unable to get repos now !!!");
+        /*
         try {
             repoListService.retrieveRepoList("hazems").subscribe(new Observer<List<String>>() {
                 @Override
@@ -90,6 +95,7 @@ public class ServicesTest {
         } catch (Exception e) {
             Assert.fail("Unable to get repos now !!!");
         }
+        */
     }
 
     @Singleton

@@ -39,7 +39,7 @@ import static org.mockito.Mockito.verify;
 @Config(application = DaggerApplication.class)
 public class RepoListPresenterTest {
     private static String USER_NAME = "hazems";
-    private static String CITY = "Cairo, Egypt";
+    private static String CITY = "New York, USA";
     public static String MOCK_INFO_SUCCESS_MSG = "MOCK INFO SUCCESS MSG";
 
     private String result;

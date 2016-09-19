@@ -56,7 +56,7 @@ public class MainActivityTest {
     private static String GREET_PREFIX = "[Test] Hello ";
     private static int MOCK_TEMPERATURE = 65;
     private static String MOCK_NAME = "Hazem";
-    private static String MOCK_PLACE = "Cairo, Egypt";
+    private static String MOCK_PLACE = "NYC, USA";
     private static String MOCK_GREETING_MSG = GREET_PREFIX + MOCK_NAME;
     private static String MOCK_WEATHER_MSG = "\nCurrent weather in " + MOCK_PLACE + " is " + MOCK_TEMPERATURE + "°F";
 

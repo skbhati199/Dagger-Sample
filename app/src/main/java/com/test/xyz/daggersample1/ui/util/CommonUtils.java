@@ -6,8 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 public class CommonUtils {
-
-    public static void showAlert(Activity activity, String message) {
+    public static void showDefaultAlert(Activity activity, String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
 
         alertDialog.setTitle("Alert");

@@ -11,9 +11,6 @@ import dagger.Provides;
 
 @Module
 public class RepoDetailsActivityModule {
-
-    public final RepoDetailsView view;
-
     public RepoDetailsActivityModule(RepoDetailsView view) {
         this.view = view;
     }
@@ -35,4 +32,6 @@ public class RepoDetailsActivityModule {
     RepoDetailsPresenter provideRepoDetailsPresenter(RepoDetailsPresenterImpl presenter) {
         return presenter;
     }
+
+    private final RepoDetailsView view;
 }

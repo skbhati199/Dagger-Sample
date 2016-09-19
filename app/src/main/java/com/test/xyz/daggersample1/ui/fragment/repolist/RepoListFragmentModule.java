@@ -11,9 +11,6 @@ import dagger.Provides;
 
 @Module
 public class RepoListFragmentModule {
-
-    public final RepoListView view;
-
     public RepoListFragmentModule(RepoListView view) {
         this.view = view;
     }
@@ -35,4 +32,6 @@ public class RepoListFragmentModule {
     RepoListPresenter provideRepoListPresenter(RepoListPresenterImpl presenter) {
         return presenter;
     }
+
+    private final RepoListView view;
 }

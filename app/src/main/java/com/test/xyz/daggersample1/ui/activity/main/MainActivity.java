@@ -1,8 +1,6 @@
 package com.test.xyz.daggersample1.ui.activity.main;
 
-import android.content.pm.PackageInstaller;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,13 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.test.xyz.daggersample1.R;
-import com.test.xyz.daggersample1.ui.fragment.main.MainFragment;
-import com.test.xyz.daggersample1.ui.fragment.repolist.RepoListFragment;
 import com.test.xyz.daggersample1.ui.navdrawer.FragmentDrawer;
 
 
 public class MainActivity extends ActionBarActivity implements FragmentDrawer.FragmentDrawerListener {
-
     private static String TAG = MainActivity.class.getSimpleName();
 
     private final int MAIN_FRAG = 0;

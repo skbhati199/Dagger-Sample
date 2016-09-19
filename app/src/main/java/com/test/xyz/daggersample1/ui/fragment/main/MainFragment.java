@@ -162,7 +162,7 @@ public class MainFragment extends BaseFragment implements MainView, View.OnClick
         this.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CommonUtils.showAlert(MainFragment.this.getActivity(), error);
+                CommonUtils.showDefaultAlert(MainFragment.this.getActivity(), error);
             }
         });
     }

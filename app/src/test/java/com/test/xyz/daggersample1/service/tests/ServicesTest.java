@@ -27,9 +27,9 @@ import rx.Observer;
 
 @RunWith(RobolectricTestRunner.class)
 public class ServicesTest {
-    public static String USER_NAME = "hazems";
-    public static String GREET_PREFIX = "Hello ";
-    public static String CITY = "Cairo, Egypt";
+    private static String USER_NAME = "hazems";
+    private static String GREET_PREFIX = "Hello ";
+    private static String CITY = "NYC, USA";
 
     @Inject
     HelloService helloService;

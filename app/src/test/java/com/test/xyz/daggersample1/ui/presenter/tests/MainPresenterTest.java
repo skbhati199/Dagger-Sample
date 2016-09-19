@@ -37,7 +37,7 @@ import static org.mockito.Mockito.when;
 @Config(application = DaggerApplication.class)
 public class MainPresenterTest {
     private static String USER_NAME = "hazems";
-    private static String CITY = "Cairo, Egypt";
+    private static String CITY = "New York, USA";
     public static String MOCK_INFO_SUCCESS_MSG = "MOCK INFO SUCCESS MSG";
 
     private String result;

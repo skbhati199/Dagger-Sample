@@ -11,9 +11,6 @@ import dagger.Provides;
 
 @Module
 public class MainFragmentModule {
-
-    public final MainView view;
-
     public MainFragmentModule(MainView view) {
         this.view = view;
     }
@@ -35,4 +32,6 @@ public class MainFragmentModule {
     MainPresenter provideMainPresenter(MainPresenterImpl presenter) {
         return presenter;
     }
+
+    private final MainView view;
 }

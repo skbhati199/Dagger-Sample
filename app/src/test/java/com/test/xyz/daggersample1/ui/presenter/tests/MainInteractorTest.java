@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
 public class MainInteractorTest {
     private static String USER_NAME = "hazems";
     private static String GREET_PREFIX = "Hello ";
-    private static String CITY = "Cairo, Egypt";
+    private static String CITY = "New York, USA";
     private String result;
     private String error;
 
@@ -67,7 +67,7 @@ public class MainInteractorTest {
     public void testGetInformation() throws Exception {
         final CountDownLatch countDownLatch = new CountDownLatch(1);
 
-        mainInteractor.getInformation("hazem", "Cairo, Egypt", new OnInfoCompletedListener() {
+        mainInteractor.getInformation("hazem", CITY, new OnInfoCompletedListener() {
             @Override
             public void onUserNameValidationError(int messageID) {
                 error = "Username error!";

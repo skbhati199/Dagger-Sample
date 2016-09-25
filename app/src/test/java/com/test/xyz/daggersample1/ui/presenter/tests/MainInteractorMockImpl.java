@@ -8,7 +8,6 @@ import com.test.xyz.daggersample1.ui.presenter.details.OnRepoDetailsCompletedLis
 import com.test.xyz.daggersample1.ui.presenter.list.OnRepoListCompletedListener;
 import com.test.xyz.daggersample1.ui.presenter.main.OnInfoCompletedListener;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.inject.Inject;
@@ -17,9 +16,9 @@ import javax.inject.Inject;
  * Mock class for the main interactor to facilitate tests ...
  */
 class MainInteractorMockImpl implements MainInteractor {
-    public static final String USERNAME_MUST_BE_PROVIDED = "Username must be provided!";
-    public static final String SOME_REPO_DETAILS = "Some Repo Details ...";
-    public static final String PROJECT_ID_HAS_TO_BE_PROVIDED = "Project ID has to be provided";
+    private static final String USERNAME_MUST_BE_PROVIDED = "Username must be provided!";
+    private static final String SOME_REPO_DETAILS = "Some Repo Details ...";
+    private static final String PROJECT_ID_HAS_TO_BE_PROVIDED = "Project ID has to be provided";
 
     @Inject
     public MainInteractorMockImpl() {
@@ -27,8 +26,6 @@ class MainInteractorMockImpl implements MainInteractor {
 
     @Override
     public void getInformation(String userName, String cityName, OnInfoCompletedListener listener) {
-        System.out.println("Mock getInformation() is called ...");
-
         if (TextUtils.isEmpty(userName)) {
             listener.onUserNameValidationError(R.string.username_invalid_message);
             return;
@@ -44,8 +41,6 @@ class MainInteractorMockImpl implements MainInteractor {
 
     @Override
     public void getRepoList(String userName, OnRepoListCompletedListener listener) {
-        System.out.println("Mock getRepoList() is called ...");
-
         if (TextUtils.isEmpty(userName)) {
             listener.onRepoListRetrievalFailure(USERNAME_MUST_BE_PROVIDED);
             return;
@@ -67,8 +62,6 @@ class MainInteractorMockImpl implements MainInteractor {
 
     @Override
     public void getRepoItemDetails(String userName, String projectID, OnRepoDetailsCompletedListener listener) {
-        System.out.println("Mock getRepoItemDetails() is called ...");
-
         if (TextUtils.isEmpty(userName)) {
             listener.onRepoDetailsRetrievalFailure(USERNAME_MUST_BE_PROVIDED);
             return;

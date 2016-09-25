@@ -18,10 +18,10 @@ import com.test.xyz.daggersample1.ui.navdrawer.FragmentDrawer;
 public class MainActivity extends ActionBarActivity implements FragmentDrawer.FragmentDrawerListener {
     private static String TAG = MainActivity.class.getSimpleName();
 
-    private final int MAIN_FRAG = 0;
-    private final int REPO_LIST_FRAG = 1;
-    private final int FRAGMENT_COUNT = REPO_LIST_FRAG + 1;
-    private final String CURRENT_FRAGMENT = "currentFragment";
+    private final static int MAIN_FRAG = 0;
+    private final static int REPO_LIST_FRAG = 1;
+    private final static int FRAGMENT_COUNT = REPO_LIST_FRAG + 1;
+    private final static String CURRENT_FRAGMENT = "currentFragment";
 
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
@@ -68,7 +68,6 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
         fragmentTransaction.commit();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

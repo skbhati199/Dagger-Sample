@@ -35,16 +35,17 @@ import static org.mockito.Mockito.mock;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = DaggerApplication.class)
 public class MainInteractorTest {
-    private static String USER_NAME = "hazems";
-    private static String GREET_PREFIX = "Hello ";
-    private static String CITY = "New York, USA";
+    private static final String USER_NAME = "hazems";
+    private static final String CITY = "New York, USA";
+    private static final String USERNAME_ERROR = "Username error!";
+    private static final String CITY_ERROR = "City error!";
     private String result;
     private String error;
 
     @Inject
     MainInteractor mainInteractor;
 
-    MainView mainView = mock(MainView.class);
+    MainView mainView;
 
     @Before
     public void setup() {
@@ -54,29 +55,27 @@ public class MainInteractorTest {
                 .appModule(new AppModule(daggerApplication))
                 .build();
 
+        mainView = mock(MainView.class);
+
         MainActivityTestComponent mainActivityTestComponent = testAppComponent.add(new MainFragmentModule(mainView));
 
         mainActivityTestComponent.inject(this);
-    }
-
-    @After
-    public void teardown() {
     }
 
     @Test
     public void testGetInformation() throws Exception {
         final CountDownLatch countDownLatch = new CountDownLatch(1);
 
-        mainInteractor.getInformation("hazem", CITY, new OnInfoCompletedListener() {
+        mainInteractor.getInformation(USER_NAME, CITY, new OnInfoCompletedListener() {
             @Override
             public void onUserNameValidationError(int messageID) {
-                error = "Username error!";
+                error = USERNAME_ERROR;
                 countDownLatch.countDown();
             }
 
             @Override
             public void onCityValidationError(int messageID) {
-                error = "City error!";
+                error = CITY_ERROR;
                 countDownLatch.countDown();
             }
 
@@ -97,10 +96,7 @@ public class MainInteractorTest {
 
         Assert.assertNull("Error", error);
         Assert.assertNotNull("Result cannot be null!!!", result);
-        System.out.println("Result = " + result);
     }
-
-    //TODO Add other tests once repo list services are implemented ...
 
     @ActivityScope
     @Subcomponent(

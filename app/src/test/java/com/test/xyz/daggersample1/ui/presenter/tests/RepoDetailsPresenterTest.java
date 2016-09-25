@@ -36,16 +36,13 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = DaggerApplication.class)
 public class RepoDetailsPresenterTest {
-    private static String USER_NAME = "hazems";
-    private static String PROJECT_ID = "test";
-
-    private String result;
-    private String error;
+    private static final String USER_NAME = "hazems";
+    private static final String PROJECT_ID = "test";
 
     @Inject
     RepoDetailsPresenter repoDetailsPresenter;
 
-    RepoDetailsView repoDetailsView = mock(RepoDetailsView.class);
+    RepoDetailsView repoDetailsView;
 
     @Before
     public void setup() {
@@ -56,13 +53,11 @@ public class RepoDetailsPresenterTest {
                 .appModule(new AppModule(daggerApplication))
                 .build();
 
+        repoDetailsView = mock(RepoDetailsView.class);
+
         RepoDetailsTestComponent repoDetailsTestComponent = testAppComponent.add(new RepoDetailsActivityMockModule(repoDetailsView));
 
         repoDetailsTestComponent.inject(this);
-    }
-
-    @After
-    public void teardown() {
     }
 
     @Test
@@ -139,4 +134,7 @@ public class RepoDetailsPresenterTest {
     public interface TestAppComponent extends AppComponent {
         RepoDetailsTestComponent add(RepoDetailsActivityMockModule module);
     }
+
+    private String result;
+    private String error;
 }

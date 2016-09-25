@@ -38,12 +38,9 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = DaggerApplication.class)
 public class RepoListPresenterTest {
-    private static String USER_NAME = "hazems";
-    private static String CITY = "New York, USA";
-    public static String MOCK_INFO_SUCCESS_MSG = "MOCK INFO SUCCESS MSG";
-
-    private String result;
-    private String error;
+    private static final String USER_NAME = "hazems";
+    private static final String CITY = "New York, USA";
+    private static final String MOCK_INFO_SUCCESS_MSG = "MOCK INFO SUCCESS MSG";
 
     @Inject
     RepoListPresenter repoListPresenter;
@@ -62,10 +59,6 @@ public class RepoListPresenterTest {
         RepoListTestComponent repoListTestComponent = testAppComponent.add(new RepoListActivityMockModule(repoListView));
 
         repoListTestComponent.inject(this);
-    }
-
-    @After
-    public void teardown() {
     }
 
     @Test
@@ -134,4 +127,7 @@ public class RepoListPresenterTest {
     public interface TestAppComponent extends AppComponent {
         RepoListTestComponent add(RepoListActivityMockModule module);
     }
+
+    private String result;
+    private String error;
 }

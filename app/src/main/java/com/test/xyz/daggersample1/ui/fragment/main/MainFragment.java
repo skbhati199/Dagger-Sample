@@ -56,7 +56,7 @@ public class MainFragment extends BaseFragment implements MainView, View.OnClick
     }
 
     @Override
-    protected void initailizeFragment(Bundle savedInstanceState) {
+    protected void initializeFragment(Bundle savedInstanceState) {
         DaggerApplication.get(this.getContext())
                 .getAppComponent()
                 .plus(new MainFragmentModule(this))

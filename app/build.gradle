@@ -39,6 +39,7 @@ android {
         resolutionStrategy.force 'com.android.support:support-annotations:23.1.0'
     }
 
+    //Pi Test Configuration ...
     pitest {
         targetClasses = ['com.test.xyz.daggersample1.ui.presenter.*']  //by default "${project.group}.*"
         pitestVersion = "1.1.0" //not needed when a default PIT version should be used

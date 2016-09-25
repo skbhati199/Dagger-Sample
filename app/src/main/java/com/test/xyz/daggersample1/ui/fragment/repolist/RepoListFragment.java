@@ -54,7 +54,7 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     }
 
     @Override
-    protected void initailizeFragment(@Nullable Bundle savedInstanceState) {
+    protected void initializeFragment(@Nullable Bundle savedInstanceState) {
         DaggerApplication.get(this.getContext())
                 .getAppComponent()
                 .plus(new RepoListFragmentModule(this))

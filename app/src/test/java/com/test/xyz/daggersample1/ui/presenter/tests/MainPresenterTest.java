@@ -36,12 +36,10 @@ import static org.mockito.Mockito.when;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = DaggerApplication.class)
 public class MainPresenterTest {
-    private static String USER_NAME = "hazems";
-    private static String CITY = "New York, USA";
-    public static String MOCK_INFO_SUCCESS_MSG = "MOCK INFO SUCCESS MSG";
+    private static final String USER_NAME = "hazems";
+    private static final String CITY = "New York, USA";
 
-    private String result;
-    private String error;
+    static final String MOCK_INFO_SUCCESS_MSG = "MOCK INFO SUCCESS MSG";
 
     @Inject
     MainPresenter mainPresenter;
@@ -50,7 +48,6 @@ public class MainPresenterTest {
 
     @Before
     public void setup() {
-
         DaggerApplication daggerApplication = (DaggerApplication) RuntimeEnvironment.application;
 
         TestAppComponent testAppComponent = DaggerMainPresenterTest_TestAppComponent.builder()
@@ -152,4 +149,7 @@ public class MainPresenterTest {
     public interface TestAppComponent extends AppComponent {
         MainActivityTestComponent add(MainActivityMockModule module);
     }
+
+    private String result;
+    private String error;
 }

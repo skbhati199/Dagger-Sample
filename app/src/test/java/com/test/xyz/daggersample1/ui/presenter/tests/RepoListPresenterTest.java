@@ -40,7 +40,6 @@ import static org.mockito.Mockito.verify;
 public class RepoListPresenterTest {
     private static final String USER_NAME = "hazems";
     private static final String CITY = "New York, USA";
-    private static final String MOCK_INFO_SUCCESS_MSG = "MOCK INFO SUCCESS MSG";
 
     @Inject
     RepoListPresenter repoListPresenter;

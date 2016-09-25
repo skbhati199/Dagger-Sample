@@ -32,7 +32,7 @@ class MainInteractorMockImpl implements MainInteractor {
         }
 
         if (TextUtils.isEmpty(cityName)) {
-            listener.onUserNameValidationError(R.string.city_invalid_message);
+            listener.onCityValidationError(R.string.city_invalid_message);
             return;
         }
 

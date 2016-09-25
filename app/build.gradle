@@ -44,6 +44,7 @@ android {
         targetClasses = ['com.test.xyz.daggersample1.ui.presenter.*']  //by default "${project.group}.*"
         pitestVersion = "1.1.0" //not needed when a default PIT version should be used
         threads = 4
+        timeoutFactor = 10000
         outputFormats = ['XML', 'HTML']
     }
 

@@ -28,7 +28,9 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.Subcomponent;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -44,7 +46,7 @@ public class MainPresenterTest {
     @Inject
     MainPresenter mainPresenter;
 
-    MainView mainView = mock(MainView.class);
+    MainView mainView;
 
     @Before
     public void setup() {
@@ -54,13 +56,11 @@ public class MainPresenterTest {
                 .appModule(new AppModule(daggerApplication))
                 .build();
 
+        mainView = mock(MainView.class);
+
         MainActivityTestComponent mainActivityTestComponent = testAppComponent.add(new MainActivityMockModule(mainView));
 
         mainActivityTestComponent.inject(this);
-    }
-
-    @After
-    public void teardown() {
     }
 
     @Test
@@ -72,6 +72,7 @@ public class MainPresenterTest {
 
         mainPresenter.requestInformation();
 
+        verify(mainView, times(1)).hideBusyIndicator();
         verify(mainView, times(1)).showResult(MOCK_INFO_SUCCESS_MSG);
     }
 
@@ -84,7 +85,9 @@ public class MainPresenterTest {
 
         mainPresenter.requestInformation();
 
+        verify(mainView, times(1)).hideBusyIndicator();
         verify(mainView, times(1)).showUserNameError(R.string.username_invalid_message);
+        verify(mainView, never()).showResult(any(String.class));
     }
 
     @Test
@@ -96,7 +99,9 @@ public class MainPresenterTest {
 
         mainPresenter.requestInformation();
 
-        verify(mainView, times(1)).showUserNameError(R.string.city_invalid_message);
+        verify(mainView, times(1)).hideBusyIndicator();
+        verify(mainView, times(1)).showCityNameError(R.string.city_invalid_message);
+        verify(mainView, never()).showResult(any(String.class));
     }
 
     /**

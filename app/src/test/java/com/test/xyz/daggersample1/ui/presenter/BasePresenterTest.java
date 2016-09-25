@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample1.ui.presenter.tests;
+package com.test.xyz.daggersample1.ui.presenter;
 
 import com.test.xyz.daggersample1.R;
 import com.test.xyz.daggersample1.interactor.MainInteractor;

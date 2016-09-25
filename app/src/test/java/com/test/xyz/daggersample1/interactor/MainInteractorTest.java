@@ -5,7 +5,7 @@ import com.test.xyz.daggersample1.di.ServiceModule;
 import com.test.xyz.daggersample1.di.component.AppComponent;
 import com.test.xyz.daggersample1.di.module.AppModule;
 import com.test.xyz.daggersample1.di.scope.ActivityScope;
-import com.test.xyz.daggersample1.tests.common.TestConfig;
+import com.test.xyz.daggersample1.common.TestConfig;
 import com.test.xyz.daggersample1.ui.fragment.main.MainFragmentComponent;
 import com.test.xyz.daggersample1.ui.fragment.main.MainFragmentModule;
 import com.test.xyz.daggersample1.ui.fragment.main.MainView;

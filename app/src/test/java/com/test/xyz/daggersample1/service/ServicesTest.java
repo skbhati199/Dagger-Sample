@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample1.service.tests;
+package com.test.xyz.daggersample1.service;
 
 import android.support.v7.appcompat.BuildConfig;
 

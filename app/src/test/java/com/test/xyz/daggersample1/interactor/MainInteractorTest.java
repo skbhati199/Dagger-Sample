@@ -5,7 +5,6 @@ import com.test.xyz.daggersample1.di.ServiceModule;
 import com.test.xyz.daggersample1.di.component.AppComponent;
 import com.test.xyz.daggersample1.di.module.AppModule;
 import com.test.xyz.daggersample1.di.scope.ActivityScope;
-import com.test.xyz.daggersample1.common.TestConfig;
 import com.test.xyz.daggersample1.ui.fragment.main.MainFragmentComponent;
 import com.test.xyz.daggersample1.ui.fragment.main.MainFragmentModule;
 import com.test.xyz.daggersample1.ui.fragment.main.MainView;
@@ -37,13 +36,13 @@ public class MainInteractorTest {
     private static final String CITY = "New York, USA";
     private static final String USERNAME_ERROR = "Username error!";
     private static final String CITY_ERROR = "City error!";
+    private static int TIMEOUT = 2000;
     private String result;
     private String error;
+    private MainView mainView;
 
     @Inject
     MainInteractor mainInteractor;
-
-    MainView mainView;
 
     @Before
     public void setup() {
@@ -90,7 +89,7 @@ public class MainInteractorTest {
             }
         });
 
-        countDownLatch.await(TestConfig.TIMEOUT, TimeUnit.MILLISECONDS);
+        countDownLatch.await(TIMEOUT, TimeUnit.MILLISECONDS);
 
         Assert.assertNull("Error", error);
         Assert.assertNotNull("Result cannot be null!!!", result);

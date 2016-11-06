@@ -48,10 +48,6 @@ public class ServicesTest {
         testComponent.inject(this);
     }
 
-    @After
-    public void teardown() {
-    }
-
     @Test
     public void testHelloService() {
         String result = helloService.greet(USER_NAME);

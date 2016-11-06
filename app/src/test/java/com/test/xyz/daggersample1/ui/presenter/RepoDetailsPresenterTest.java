@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -21,7 +20,7 @@ public class RepoDetailsPresenterTest  extends BasePresenterTest {
     private static final String USER_NAME = "hazems";
     private static final String PROJECT_ID = "test";
 
-    RepoDetailsPresenter repoDetailsPresenter;
+    private RepoDetailsPresenter repoDetailsPresenter;
 
     @Mock
     MainInteractor mainInteractor;
@@ -36,21 +35,28 @@ public class RepoDetailsPresenterTest  extends BasePresenterTest {
     }
 
     @Test
-    public void testGetRepoDetails() throws Exception {
+    public void testGetRepoDetails() {
+        //GIVEN
+        //NOTHING
+
+        //WHEN
         repoDetailsPresenter.requestRepoDetails(USER_NAME, PROJECT_ID);
 
-        verify(repoDetailsView, times(1)).showRepoDetails(Matchers.any(String.class));
+        //THEN
+        verify(repoDetailsView).showRepoDetails(Matchers.any(String.class));
         verify(repoDetailsView, never()).showError(Matchers.any(String.class));
     }
 
     @Test
-    public void testGetRepoListWithoutUserName() throws Exception {
+    public void testGetRepoListWithoutUserName() {
+        //GIVEN
+        //NOTHING
+
+        //WHEN
         repoDetailsPresenter.requestRepoDetails("", PROJECT_ID);
 
+        //THEN
         verify(repoDetailsView, never()).showRepoDetails(Matchers.any(String.class));
-        verify(repoDetailsView, times(1)).showError(Matchers.any(String.class));
+        verify(repoDetailsView).showError(Matchers.any(String.class));
     }
-
-    private String result;
-    private String error;
 }

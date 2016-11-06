@@ -23,7 +23,7 @@ public class MainPresenterTest extends BasePresenterTest {
     private static final String USER_NAME = "hazems";
     private static final String CITY = "New York, USA";
 
-    MainPresenter mainPresenter;
+    private MainPresenter mainPresenter;
 
     @Mock
     MainInteractor mainInteractor;
@@ -41,26 +41,28 @@ public class MainPresenterTest extends BasePresenterTest {
 
     @Test
     public void testGetValidInformation() throws Exception {
-
-        // Here we need to set the view to some data in order to test the main presenter ...
+        //GIVEN
         when(mainView.getUserNameText()).thenReturn(USER_NAME);
         when(mainView.getCityText()).thenReturn(CITY);
 
+        //WHEN
         mainPresenter.requestInformation();
 
+        //THEN
         verify(mainView, times(1)).hideBusyIndicator();
         verify(mainView, times(1)).showResult(MOCK_INFO_SUCCESS_MSG);
     }
 
     @Test
     public void testGetInformationForEmptyUser() throws Exception {
-
-        // Here we need to set the view to some data in order to test the main presenter ...
+        //GIVEN
         when(mainView.getUserNameText()).thenReturn("");
         when(mainView.getCityText()).thenReturn(CITY);
 
+        //WHEN
         mainPresenter.requestInformation();
 
+        //THEN
         verify(mainView, times(1)).hideBusyIndicator();
         verify(mainView, times(1)).showUserNameError(R.string.username_invalid_message);
         verify(mainView, never()).showResult(any(String.class));
@@ -68,13 +70,14 @@ public class MainPresenterTest extends BasePresenterTest {
 
     @Test
     public void testGetInformationForEmptyCity() throws Exception {
-
-        // Here we need to set the view to some data in order to test the main presenter ...
+        //GIVEN
         when(mainView.getUserNameText()).thenReturn(USER_NAME);
         when(mainView.getCityText()).thenReturn("");
 
+        //WHEN
         mainPresenter.requestInformation();
 
+        //THEN
         verify(mainView, times(1)).hideBusyIndicator();
         verify(mainView, times(1)).showCityNameError(R.string.city_invalid_message);
         verify(mainView, never()).showResult(any(String.class));

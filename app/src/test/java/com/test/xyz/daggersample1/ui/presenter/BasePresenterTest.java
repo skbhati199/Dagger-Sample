@@ -20,7 +20,50 @@ public class BasePresenterTest {
     static final String MOCK_INFO_SUCCESS_MSG = "MOCK INFO SUCCESS MSG";
 
     protected void mockInteractor(MainInteractor mainInteractor) {
+        mockGetInformationAPI(mainInteractor);
+        mockGetRepoListAPI(mainInteractor);
+        mockGetRepoItemsAPI(mainInteractor);
+    }
 
+    private void mockGetRepoItemsAPI(MainInteractor mainInteractor) {
+        // Mock getRepoItemDetails
+        doAnswer(new Answer() {
+            public Object answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                ((OnRepoDetailsCompletedListener) args[2]).onRepoDetailsRetrievalFailure(any(String.class));
+                return null;
+            }
+        }).when(mainInteractor).getRepoItemDetails(eq(""), any(String.class), any(OnRepoDetailsCompletedListener.class));
+
+        doAnswer(new Answer() {
+            public Object answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                ((OnRepoDetailsCompletedListener) args[2]).onRepoDetailsRetrievalSuccess(any(String.class));
+                return null;
+            }
+        }).when(mainInteractor).getRepoItemDetails(not(eq("")), any(String.class), any(OnRepoDetailsCompletedListener.class));
+    }
+
+    private void mockGetRepoListAPI(MainInteractor mainInteractor) {
+        // Mock getRepoList
+        doAnswer(new Answer() {
+            public Object answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                ((OnRepoListCompletedListener) args[1]).onRepoListRetrievalFailure("Error");
+                return null;
+            }
+        }).when(mainInteractor).getRepoList(eq(""), any(OnRepoListCompletedListener.class));
+
+        doAnswer(new Answer() {
+            public Object answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                ((OnRepoListCompletedListener) args[1]).onRepoListRetrievalSuccess(any(List.class));
+                return null;
+            }
+        }).when(mainInteractor).getRepoList(not(eq("")), any(OnRepoListCompletedListener.class));
+    }
+
+    private void mockGetInformationAPI(MainInteractor mainInteractor) {
         // Mock getInformation
         doAnswer(new Answer() {
             public Object answer(InvocationOnMock invocation) {
@@ -45,39 +88,5 @@ public class BasePresenterTest {
                 return null;
             }
         }).when(mainInteractor).getInformation(not(eq("")), not(eq("")), any(OnInfoCompletedListener.class));
-
-        // Mock getRepoList
-        doAnswer(new Answer() {
-            public Object answer(InvocationOnMock invocation) {
-                Object[] args = invocation.getArguments();
-                ((OnRepoListCompletedListener) args[1]).onRepoListRetrievalFailure("Error");
-                return null;
-            }
-        }).when(mainInteractor).getRepoList(eq(""), any(OnRepoListCompletedListener.class));
-
-        doAnswer(new Answer() {
-            public Object answer(InvocationOnMock invocation) {
-                Object[] args = invocation.getArguments();
-                ((OnRepoListCompletedListener) args[1]).onRepoListRetrievalSuccess(any(List.class));
-                return null;
-            }
-        }).when(mainInteractor).getRepoList(not(eq("")), any(OnRepoListCompletedListener.class));
-
-        // Mock getRepoItemDetails
-        doAnswer(new Answer() {
-            public Object answer(InvocationOnMock invocation) {
-                Object[] args = invocation.getArguments();
-                ((OnRepoDetailsCompletedListener) args[2]).onRepoDetailsRetrievalFailure(any(String.class));
-                return null;
-            }
-        }).when(mainInteractor).getRepoItemDetails(eq(""), any(String.class), any(OnRepoDetailsCompletedListener.class));
-
-        doAnswer(new Answer() {
-            public Object answer(InvocationOnMock invocation) {
-                Object[] args = invocation.getArguments();
-                ((OnRepoDetailsCompletedListener) args[2]).onRepoDetailsRetrievalSuccess(any(String.class));
-                return null;
-            }
-        }).when(mainInteractor).getRepoItemDetails(not(eq("")), any(String.class), any(OnRepoDetailsCompletedListener.class));
     }
 }

@@ -23,7 +23,7 @@ public class RepoListPresenterTest extends BasePresenterTest {
     private static final String USER_NAME = "hazems";
     private static final String CITY = "New York, USA";
 
-    RepoListPresenter repoListPresenter;
+    private RepoListPresenter repoListPresenter;
 
     @Mock
     RepoListView repoListView;
@@ -38,17 +38,27 @@ public class RepoListPresenterTest extends BasePresenterTest {
     }
 
     @Test
-    public void testGetRepoList() throws Exception {
+    public void testGetRepoList() {
+        //GIVEN
+        //NOTHING
+
+        //WHEN
         repoListPresenter.requestRepoList(USER_NAME);
 
-        verify(repoListView, times(1)).showRepoList(Matchers.any(List.class));
+        //THEN
+        verify(repoListView).showRepoList(Matchers.any(List.class));
         verify(repoListView, never()).showError(Matchers.any(String.class));
     }
 
     @Test
-    public void testGetRepoListWithoutUserName() throws Exception {
+    public void testGetRepoListWithoutUserName() {
+        //GIVEN
+        //NOTHING
+
+        //WHEN
         repoListPresenter.requestRepoList("");
 
+        //THEN
         verify(repoListView, never()).showRepoList(Matchers.any(List.class));
         verify(repoListView, times(1)).showError(Matchers.any(String.class));
     }

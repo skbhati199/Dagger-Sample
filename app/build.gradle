@@ -3,6 +3,9 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'pl.droidsonroids.pitest'
 
+apply from: "../config/jacoco.gradle"
+
+
 android {
     signingConfigs {
         config {
@@ -24,6 +27,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
         release {
             minifyEnabled true
             shrinkResources true
@@ -41,7 +47,7 @@ android {
 
     //Pi Test Configuration ...
     pitest {
-        targetClasses = ['com.test.xyz.daggersample1.ui.presenter.*']  //by default "${project.group}.*"
+        targetClasses = ['com.test.xyz.daggersample.presenter.*']  //by default "${project.group}.*"
         excludedClasses = ['**Factory*']
         pitestVersion = "1.1.0" //not needed when a default PIT version should be used
         threads = 4

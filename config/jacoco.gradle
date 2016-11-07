@@ -1,0 +1,44 @@
+apply plugin: 'jacoco'
+jacoco {
+    toolVersion = "0.7.6.201602180812"
+}
+
+def appRootName = 'app'
+
+def coverageSourceDirs = [
+        "../${appRootName}/src/main/java"
+]
+def buildVariant = 'testDebugUnitTest'
+
+task jacocoTestReport(type:JacocoReport, dependsOn: buildVariant) {
+    group = "Reporting"
+
+    description = "Generate Jacoco coverage reports"
+
+    classDirectories = fileTree(
+            dir: "../${appRootName}/build/intermediates/classes/debug",
+            excludes: ['**/R.class',
+                       '**/R$*.class',
+                       '**/*$ViewBinder*.*',
+                       '**/*$ViewInjector*.*',
+                       '**/BuildConfig.*',
+                       '**/Manifest*.*',
+                       '**/**Factory*',
+                       '**/*_MembersInjector*.*',
+                       '**/com/test/xyz/daggersample/service/api/model*',
+                       '**/com/test/xyz/daggersample/service/exception*',
+                       '**/com/test/xyz/daggersample/di*',
+                       '**/com/test/xyz/daggersample/view*',
+                       '**/com/test/xyz/daggersample/service*' /* Excluding I/O HTTP service classes from report */
+            ]
+    )
+
+    additionalSourceDirs = files(coverageSourceDirs)
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files("../${appRootName}/build/jacoco/${buildVariant}.exec")
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}

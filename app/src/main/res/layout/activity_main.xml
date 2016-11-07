@@ -29,13 +29,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <fragment class="com.test.xyz.daggersample1.ui.fragment.main.MainFragment"
+            <fragment class="com.test.xyz.daggersample.view.fragment.main.MainFragment"
                 android:id="@+id/main_frag"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />
 
-            <fragment class="com.test.xyz.daggersample1.ui.fragment.repolist.RepoListFragment"
+            <fragment class="com.test.xyz.daggersample.view.fragment.repolist.RepoListFragment"
                 android:id="@+id/repolist_frag"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/fragment_navigation_drawer"
-        android:name="com.test.xyz.daggersample1.ui.navdrawer.FragmentDrawer"
+        android:name="com.test.xyz.daggersample.view.navdrawer.FragmentDrawer"
         android:layout_width="@dimen/nav_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"

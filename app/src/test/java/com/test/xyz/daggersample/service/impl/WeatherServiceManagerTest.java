@@ -21,7 +21,7 @@ public class WeatherServiceManagerTest {
     }
 
     @Test
-    public void testWeatherService() {
+    public void getWeatherInfo_whenCityIsValid_shouldReturnWeatherDegree() {
         try {
             weatherService.getWeatherInfo(CITY);
         } catch (InvalidCityException e) {

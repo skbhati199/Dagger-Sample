@@ -24,7 +24,7 @@ public class HelloServiceTest {
     }
 
     @Test
-    public void testCommonHelloService() {
+    public void greet_whenUserNameIsValid_shouldGreetUser() {
         //GIVEN
         helloService = new HelloServiceManager();
 

@@ -39,7 +39,7 @@ public class MainPresenterTest extends BasePresenterTest {
     }
 
     @Test
-    public void testGetValidInformation() throws Exception {
+    public void requestInformation_whenUserNameAndCityAreValid_shouldReturnInfo() throws Exception {
         //GIVEN
         when(mainView.getUserNameText()).thenReturn(USER_NAME);
         when(mainView.getCityText()).thenReturn(CITY);
@@ -53,7 +53,7 @@ public class MainPresenterTest extends BasePresenterTest {
     }
 
     @Test
-    public void testGetInformationForEmptyUser() throws Exception {
+    public void requestInformation_whenUserNameIsEmpty_shouldReturnError() throws Exception {
         //GIVEN
         when(mainView.getUserNameText()).thenReturn("");
         when(mainView.getCityText()).thenReturn(CITY);
@@ -68,7 +68,7 @@ public class MainPresenterTest extends BasePresenterTest {
     }
 
     @Test
-    public void testGetInformationForEmptyCity() throws Exception {
+    public void requestInformation_whenCityIsEmpty_shouldReturnError() throws Exception {
         //GIVEN
         when(mainView.getUserNameText()).thenReturn(USER_NAME);
         when(mainView.getCityText()).thenReturn("");
@@ -81,7 +81,4 @@ public class MainPresenterTest extends BasePresenterTest {
         verify(mainView, times(1)).showCityNameError(R.string.city_invalid_message);
         verify(mainView, never()).showResult(any(String.class));
     }
-
-    private String result;
-    private String error;
 }

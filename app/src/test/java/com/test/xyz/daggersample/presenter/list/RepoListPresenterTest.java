@@ -37,7 +37,7 @@ public class RepoListPresenterTest extends BasePresenterTest {
     }
 
     @Test
-    public void testGetRepoList() {
+    public void requestRepoList_whenUserNameIsValid_shouldReturnRepoList() {
         //GIVEN
         //NOTHING
 
@@ -50,7 +50,7 @@ public class RepoListPresenterTest extends BasePresenterTest {
     }
 
     @Test
-    public void testGetRepoListWithoutUserName() {
+    public void requestRepoList_whenUserNameIsEmpty_shouldError() {
         //GIVEN
         //NOTHING
 

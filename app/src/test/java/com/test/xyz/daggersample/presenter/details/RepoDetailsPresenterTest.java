@@ -34,7 +34,7 @@ public class RepoDetailsPresenterTest  extends BasePresenterTest {
     }
 
     @Test
-    public void testGetRepoDetails() {
+    public void requestRepoDetails_whenUserNameAndProjectIDAreValid_shouldReturnRepoDetails() {
         //GIVEN
         //NOTHING
 
@@ -47,7 +47,7 @@ public class RepoDetailsPresenterTest  extends BasePresenterTest {
     }
 
     @Test
-    public void testGetRepoListWithoutUserName() {
+    public void requestRepoDetails_whenUserNameIsEmpty_shouldReturnError() {
         //GIVEN
         //NOTHING
 

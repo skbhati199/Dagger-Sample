@@ -50,7 +50,7 @@ public class MainInteractorImpl implements MainInteractor {
         }
 
         if (cityName.equals("")) {
-            listener.onUserNameValidationError(R.string.city_invalid_message);
+            listener.onCityValidationError(R.string.city_invalid_message);
             return;
         }
 

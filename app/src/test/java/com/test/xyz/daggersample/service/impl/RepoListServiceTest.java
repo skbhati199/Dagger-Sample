@@ -40,7 +40,7 @@ public class RepoListServiceTest {
     }
 
     @Test
-    public void testRepoListService() {
+    public void retrieveRepoList_whenUserNameIsValid_shouldReturnRepoList() {
         try {
             Observable<List<String>> observable = repoListService.retrieveRepoList(USER_NAME);
             List<String> output = observable.toBlocking().first();

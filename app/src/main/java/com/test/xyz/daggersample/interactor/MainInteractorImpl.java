@@ -1,7 +1,6 @@
 package com.test.xyz.daggersample.interactor;
 
 import android.support.annotation.VisibleForTesting;
-import android.util.Log;
 
 import com.test.xyz.daggersample.presenter.details.OnRepoDetailsCompletedListener;
 import com.test.xyz.daggersample.presenter.list.OnRepoListCompletedListener;
@@ -44,13 +43,13 @@ public class MainInteractorImpl implements MainInteractor {
     public void getInformation(final String userName, final String cityName, final OnInfoCompletedListener listener) {
         final String greeting = helloService.greet(userName) + "\n";
 
-        if (userName.equals("")) {
-            listener.onUserNameValidationError(R.string.username_invalid_message);
+        if (userName != null && userName.trim().equals("")) {
+            listener.onUserNameValidationError(R.string.username_empty_message);
             return;
         }
 
-        if (cityName.equals("")) {
-            listener.onCityValidationError(R.string.city_invalid_message);
+        if (cityName != null && cityName.trim().equals("")) {
+            listener.onCityValidationError(R.string.city_empty_message);
             return;
         }
 
@@ -66,10 +65,8 @@ public class MainInteractorImpl implements MainInteractor {
                     listener.onSuccess(greeting + temp);
                 } catch (InvalidCityException ex) {
                     listener.onFailure(ex.getMessage());
-                    Log.e(TAG, ex.getMessage(), ex);
                 } catch (Exception ex) {
                     listener.onFailure("Unable to get weather information");
-                    Log.e(TAG, ex.getMessage(), ex);
                 }
             }
         });
@@ -91,8 +88,7 @@ public class MainInteractorImpl implements MainInteractor {
 
             @Override
             public void onError(Throwable e) {
-                e.printStackTrace();
-                listener.onRepoListRetrievalFailure("Unable to get repo items ...");
+                listener.onRepoListRetrievalFailure("Unable to get repo items: " + e.getMessage());
             }
 
             @Override
@@ -116,8 +112,7 @@ public class MainInteractorImpl implements MainInteractor {
 
             @Override
             public void onError(Throwable e) {
-                e.printStackTrace();
-                listener.onRepoDetailsRetrievalFailure("Unable to get repo item details ...");
+                listener.onRepoDetailsRetrievalFailure("Unable to get repo item details: " + e.getMessage());
             }
 
             @Override

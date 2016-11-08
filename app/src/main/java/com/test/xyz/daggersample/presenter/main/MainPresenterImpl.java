@@ -42,6 +42,6 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void onFailure(String errorMessage) {
         mainView.hideBusyIndicator();
-        mainView.showResult(errorMessage);
+        mainView.showError(errorMessage);
     }
 }

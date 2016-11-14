@@ -11,8 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.never;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -47,8 +46,8 @@ public class MainPresenterTest extends BasePresenterTest {
 
         //THEN
         //TODO comment the next line to show how it work.
-        verify(mainView).showBusyIndicator();
-        verify(mainView).hideBusyIndicator();
+        //verify(mainView).showBusyIndicator();
+        //verify(mainView).hideBusyIndicator();
         verify(mainView).showResult(MOCK_INFO_SUCCESS_MSG);
     }
 
@@ -62,9 +61,11 @@ public class MainPresenterTest extends BasePresenterTest {
         mainPresenter.requestInformation();
 
         //THEN
-        verify(mainView).hideBusyIndicator();
+        //TODO comment the next method to show how it work.
+        //verify(mainView).showBusyIndicator();
+        //verify(mainView).hideBusyIndicator();
+        //verify(mainView, never()).showResult(any(String.class));
         verify(mainView).showUserNameError(R.string.username_empty_message);
-        verify(mainView, never()).showResult(any(String.class));
     }
 
     @Test
@@ -77,13 +78,13 @@ public class MainPresenterTest extends BasePresenterTest {
         mainPresenter.requestInformation();
 
         //THEN
-        verify(mainView).hideBusyIndicator();
+        //TODO comment the next method to show how it work.
+        //verify(mainView).showBusyIndicator();
+        //verify(mainView).hideBusyIndicator();
+        //verify(mainView, never()).showResult(any(String.class));
         verify(mainView).showCityNameError(R.string.city_empty_message);
-        verify(mainView, never()).showResult(any(String.class));
     }
 
-    //TODO comment the next method to show how it work.
-    /*
     @Test
     public void requestInformation_whenCityIsInvalid_shouldReturnError() throws Exception {
         //GIVEN
@@ -94,9 +95,9 @@ public class MainPresenterTest extends BasePresenterTest {
         mainPresenter.requestInformation();
 
         //THEN
-        verify(mainView).showBusyIndicator();
-        verify(mainView).hideBusyIndicator();
+        //TODO comment the next method to show how it work.
+        //verify(mainView).showBusyIndicator();
+        //verify(mainView).hideBusyIndicator();
         verify(mainView).showError(anyString());
     }
-    */
 }

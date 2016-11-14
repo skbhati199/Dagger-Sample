@@ -1,0 +1,20 @@
+apply plugin: 'pl.droidsonroids.pitest'
+
+android {
+    //Pi Test Configuration ...
+    pitest {
+        targetClasses = ['com.test.xyz.daggersample.presenter.*',
+                         'com.test.xyz.daggersample.interactor.*']  //by default "${project.group}.*"
+        excludedClasses = ['**Factory*', '**_MembersInjector*']
+        pitestVersion = "1.1.0" //not needed when a default PIT version should be used
+        threads = 4
+        timeoutFactor = 10000
+        outputFormats = ['XML', 'HTML']
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+    }
+}

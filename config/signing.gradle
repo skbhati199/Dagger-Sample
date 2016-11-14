@@ -1,0 +1,10 @@
+android {
+    signingConfigs {
+        config {
+            keyAlias 'MyAndroidKey'
+            keyPassword 'password'
+            storeFile file('android.jks')
+            storePassword 'password'
+        }
+    }
+}

@@ -11,10 +11,4 @@ android {
         timeoutFactor = 10000
         outputFormats = ['XML', 'HTML']
     }
-
-    sourceSets {
-        main {
-            java.srcDirs = ['src/main/java']
-        }
-    }
 }

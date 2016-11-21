@@ -14,7 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.test.xyz.daggersample1.R;
+import com.test.xyz.daggersample.R;
 
 import java.util.ArrayList;
 import java.util.List;

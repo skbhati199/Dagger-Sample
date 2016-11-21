@@ -17,7 +17,7 @@ import com.test.xyz.daggersample.view.fragment.base.BaseFragment;
 import com.test.xyz.daggersample.presenter.list.RepoListPresenter;
 import com.test.xyz.daggersample.view.util.CommonConstants;
 import com.test.xyz.daggersample.view.util.CommonUtils;
-import com.test.xyz.daggersample1.R;
+import com.test.xyz.daggersample.R;
 
 import java.util.ArrayList;
 import java.util.List;

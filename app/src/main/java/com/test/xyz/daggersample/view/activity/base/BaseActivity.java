@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.test.xyz.daggersample1.R;
+import com.test.xyz.daggersample.R;
 
 import butterknife.InjectView;
 

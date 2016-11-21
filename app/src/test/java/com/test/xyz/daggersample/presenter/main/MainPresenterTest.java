@@ -3,7 +3,7 @@ package com.test.xyz.daggersample.presenter.main;
 import com.test.xyz.daggersample.interactor.MainInteractor;
 import com.test.xyz.daggersample.presenter.BasePresenterTest;
 import com.test.xyz.daggersample.view.fragment.main.MainView;
-import com.test.xyz.daggersample1.R;
+import com.test.xyz.daggersample.R;
 
 import org.junit.Before;
 import org.junit.Test;

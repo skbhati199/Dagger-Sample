@@ -20,7 +20,7 @@ import com.test.xyz.daggersample.service.api.WeatherService;
 import com.test.xyz.daggersample.service.exception.InvalidCityException;
 import com.test.xyz.daggersample.view.activity.main.MainActivity;
 import com.test.xyz.daggersample.util.DaggerActivityTestRule;
-import com.test.xyz.daggersample1.R;
+import com.test.xyz.daggersample.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

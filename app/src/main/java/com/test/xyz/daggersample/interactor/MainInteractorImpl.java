@@ -9,7 +9,7 @@ import com.test.xyz.daggersample.service.api.HelloService;
 import com.test.xyz.daggersample.service.api.RepoListService;
 import com.test.xyz.daggersample.service.api.WeatherService;
 import com.test.xyz.daggersample.service.exception.InvalidCityException;
-import com.test.xyz.daggersample1.R;
+import com.test.xyz.daggersample.R;
 
 import java.util.List;
 

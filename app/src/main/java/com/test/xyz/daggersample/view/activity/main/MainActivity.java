@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.test.xyz.daggersample.view.navdrawer.FragmentDrawer;
-import com.test.xyz.daggersample1.R;
+import com.test.xyz.daggersample.R;
 
 
 public class MainActivity extends ActionBarActivity implements FragmentDrawer.FragmentDrawerListener {

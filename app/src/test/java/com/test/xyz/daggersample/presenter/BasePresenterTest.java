@@ -4,7 +4,7 @@ import com.test.xyz.daggersample.interactor.MainInteractor;
 import com.test.xyz.daggersample.presenter.details.OnRepoDetailsCompletedListener;
 import com.test.xyz.daggersample.presenter.list.OnRepoListCompletedListener;
 import com.test.xyz.daggersample.presenter.main.OnInfoCompletedListener;
-import com.test.xyz.daggersample1.R;
+import com.test.xyz.daggersample.R;
 
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.test.xyz.daggersample.di.DaggerApplication;
 import com.test.xyz.daggersample.view.fragment.base.BaseFragment;
 import com.test.xyz.daggersample.presenter.main.MainPresenter;
-import com.test.xyz.daggersample1.R;
+import com.test.xyz.daggersample.R;
 import com.test.xyz.daggersample.view.util.CommonUtils;
 
 import javax.inject.Inject;

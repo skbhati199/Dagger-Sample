@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.test.xyz.daggersample1.R;
+import com.test.xyz.daggersample.R;
 
 import java.util.Collections;
 import java.util.List;

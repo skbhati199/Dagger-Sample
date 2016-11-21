@@ -44,6 +44,8 @@ public class MainInteractorTest {
     private static final int DEFAULT_WEATHER_DEGREE = 10;
     private static final String EMPTY_VALUE = "";
 
+    private MainInteractor testSubject;
+
     @Mock
     private OnWeatherInfoCompletedListener onInfoCompletedListener;
 
@@ -62,12 +64,10 @@ public class MainInteractorTest {
     @Mock
     private RepoListService repoListService;
 
-    private MainInteractor mainInteractor;
-
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        mainInteractor = new MainInteractorImpl(helloService, weatherService, repoListService);
+        testSubject = new MainInteractorImpl(helloService, weatherService, repoListService);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class MainInteractorTest {
             mockWeatherServiceCalls();
 
             //WHEN
-            mainInteractor.getWeatherInformation(USER_NAME, CITY, onInfoCompletedListener);
+            testSubject.getWeatherInformation(USER_NAME, CITY, onInfoCompletedListener);
 
             //THEN
             verify(onInfoCompletedListener, timeout(50)).onSuccess(any(String.class));
@@ -94,7 +94,7 @@ public class MainInteractorTest {
             mockWeatherServiceCalls();
 
             //WHEN
-            mainInteractor.getWeatherInformation(USER_NAME, INVALID_CITY, onInfoCompletedListener);
+            testSubject.getWeatherInformation(USER_NAME, INVALID_CITY, onInfoCompletedListener);
 
             //THEN
             verify(onInfoCompletedListener, timeout(50)).onFailure(any(String.class));
@@ -110,7 +110,7 @@ public class MainInteractorTest {
             mockWeatherServiceCalls();
 
             //WHEN
-            mainInteractor.getWeatherInformation("", CITY, onInfoCompletedListener);
+            testSubject.getWeatherInformation("", CITY, onInfoCompletedListener);
 
             //THEN
             verify(onInfoCompletedListener, timeout(50)).onUserNameValidationError(R.string.username_empty_message);
@@ -126,7 +126,7 @@ public class MainInteractorTest {
             mockWeatherServiceCalls();
 
             //WHEN
-            mainInteractor.getWeatherInformation(USER_NAME, "", onInfoCompletedListener);
+            testSubject.getWeatherInformation(USER_NAME, "", onInfoCompletedListener);
 
             //THEN
             verify(onInfoCompletedListener, timeout(50)).onCityValidationError(R.string.city_empty_message);
@@ -141,7 +141,7 @@ public class MainInteractorTest {
         List<String> result = mockRepoListCalls();
 
         //WHEN
-        mainInteractor.getRepoList(USER_NAME, onRepoListCompletedListener);
+        testSubject.getRepoList(USER_NAME, onRepoListCompletedListener);
 
         //THEN
         verify(onRepoListCompletedListener).onRepoListRetrievalSuccess(result);
@@ -153,7 +153,7 @@ public class MainInteractorTest {
         mockRepoListCalls();
 
         //WHEN
-        mainInteractor.getRepoList("", onRepoListCompletedListener);
+        testSubject.getRepoList("", onRepoListCompletedListener);
 
         //THEN
         verify(onRepoListCompletedListener).onRepoListRetrievalFailure(anyString());
@@ -165,7 +165,7 @@ public class MainInteractorTest {
         String result = mockRepoListServiceCalls();
 
         //WHEN
-        mainInteractor.getRepoItemDetails(USER_NAME, PROJECT_ID, onRepoDetailsCompletedListener);
+        testSubject.getRepoItemDetails(USER_NAME, PROJECT_ID, onRepoDetailsCompletedListener);
 
         //THEN
         verify(onRepoDetailsCompletedListener).onRepoDetailsRetrievalSuccess(result);
@@ -177,7 +177,7 @@ public class MainInteractorTest {
         mockRepoListServiceCalls();
 
         // WHEN
-        mainInteractor.getRepoItemDetails("", PROJECT_ID, onRepoDetailsCompletedListener);
+        testSubject.getRepoItemDetails("", PROJECT_ID, onRepoDetailsCompletedListener);
 
         //THEN
         verify(onRepoDetailsCompletedListener).onRepoDetailsRetrievalFailure(anyString());
@@ -189,7 +189,7 @@ public class MainInteractorTest {
         mockRepoListServiceCalls();
 
         // WHEN
-        mainInteractor.getRepoItemDetails("", PROJECT_ID, onRepoDetailsCompletedListener);
+        testSubject.getRepoItemDetails("", PROJECT_ID, onRepoDetailsCompletedListener);
 
         //THEN
         verify(onRepoDetailsCompletedListener).onRepoDetailsRetrievalFailure(anyString());

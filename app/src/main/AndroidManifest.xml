@@ -24,7 +24,7 @@
         </activity>
 
         <activity android:name="com.test.xyz.daggersample.view.activity.repodetails.RepoDetailsActivity"
-            android:label="Repo Details"
+            android:label="@string/repo_details"
             android:theme="@style/AppTheme">
 
         </activity>

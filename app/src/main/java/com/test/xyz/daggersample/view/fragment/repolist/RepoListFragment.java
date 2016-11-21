@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class RepoListFragment extends BaseFragment implements RepoListView {
-    static String TAG = RepoListFragment.class.getName();
+    private final static String TAG = RepoListFragment.class.getName();
 
     @Inject
     RepoListPresenter presenter;

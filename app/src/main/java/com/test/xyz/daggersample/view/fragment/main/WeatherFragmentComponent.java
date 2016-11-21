@@ -6,9 +6,9 @@ import dagger.Subcomponent;
 
 @ActivityScope
 @Subcomponent(
-        modules = {MainFragmentModule.class}
+        modules = {WeatherFragmentModule.class}
 )
-public interface MainFragmentComponent {
-    void inject(MainFragment mainFragment);
+public interface WeatherFragmentComponent {
+    void inject(WeatherFragment mainFragment);
 }
 

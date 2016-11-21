@@ -14,20 +14,19 @@ import android.view.View;
 import com.test.xyz.daggersample.view.navdrawer.FragmentDrawer;
 import com.test.xyz.daggersample.R;
 
-
 public class MainActivity extends ActionBarActivity implements FragmentDrawer.FragmentDrawerListener {
-    private static String TAG = MainActivity.class.getSimpleName();
-
-    private final static int MAIN_FRAG = 0;
-    private final static int REPO_LIST_FRAG = 1;
-    private final static int FRAGMENT_COUNT = REPO_LIST_FRAG + 1;
+    private final static String TAG = MainActivity.class.getSimpleName();
+    private final static int REPO_LIST_FRAG = 0;
+    private final static int WEATHER_FRAG = 1;
+    private final static int FRAGMENT_COUNT = WEATHER_FRAG + 1;
     private final static String CURRENT_FRAGMENT = "currentFragment";
+
+    private final Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
 
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
-    private Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
 
-    private int currentFragment = 0;
+    private int currentFragment = REPO_LIST_FRAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +56,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     private void hideAllFragments() {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        fragments[0] = fragmentManager.findFragmentById(R.id.main_frag);
-        fragments[1] = fragmentManager.findFragmentById(R.id.repolist_frag);
+        fragments[0] = fragmentManager.findFragmentById(R.id.repolist_frag);
+        fragments[1] = fragmentManager.findFragmentById(R.id.main_frag);
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -102,11 +101,11 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         String title = "";
 
         switch (fragmentIndex) {
-            case MAIN_FRAG:
-                title = getString(R.string.nav_item_main);
-                break;
             case REPO_LIST_FRAG:
                 title = getString(R.string.nav_item_repo_list);
+                break;
+            case WEATHER_FRAG:
+                title = getString(R.string.nav_item_main);
                 break;
             default:
                 break;

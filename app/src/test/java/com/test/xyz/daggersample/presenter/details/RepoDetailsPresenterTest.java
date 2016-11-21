@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RepoDetailsPresenterTest  extends BasePresenterTest {
-    private static final String USER_NAME = "hazems";
+    private static final String USER_NAME = "google";
     private static final String PROJECT_ID = "test";
 
     private RepoDetailsPresenter repoDetailsPresenter;

@@ -18,9 +18,8 @@ import com.test.xyz.daggersample.service.api.HelloService;
 import com.test.xyz.daggersample.service.api.RepoListService;
 import com.test.xyz.daggersample.service.api.WeatherService;
 import com.test.xyz.daggersample.service.exception.InvalidCityException;
-import com.test.xyz.daggersample.view.activity.main.MainActivity;
 import com.test.xyz.daggersample.util.DaggerActivityTestRule;
-import com.test.xyz.daggersample.R;
+import com.test.xyz.daggersample.view.activity.main.MainActivity;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -63,7 +62,6 @@ public class MainActivityTest {
 
     private static String MOCK_INFO_RESPONSE_MESSAGE = MOCK_GREETING_MSG + MOCK_WEATHER_MSG;
     private static String MOCK_REPO_DETAILS_RESPONSE_MESSAGE = "Repo Details ...";
-
 
     private static String TAG = MainActivityTest.class.getName();
 
@@ -136,35 +134,8 @@ public class MainActivityTest {
     }
 
     @Test
-    public void showInformationAction() {
-        onView(withId(R.id.userNameText))
-                .perform(typeText(MOCK_NAME), closeSoftKeyboard());
-
-        onView(withId(R.id.cityText)).perform(clearText(), typeText(MOCK_PLACE), closeSoftKeyboard());
-
-        onView(withId(R.id.btnShowInfo)).perform(click());
-
-        onView(withId(R.id.resultView)).check(matches(withText(MOCK_INFO_RESPONSE_MESSAGE)));
-    }
-
-    @Test
     public void showRepoListAction() {
-        // Open settings button ...
-        //openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-        //onView(withText(R.string.nav_item_repo_list)).perform(click());
-
-        // Open the navigation drawer ...
-        onView(withId(R.id.drawer_layout)).perform(actionOpenDrawer());
-
-        // Just give 1 second for the drawer layout to open ...
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // Click on the navigation item repo list ...
-        onView(withText(R.string.nav_item_repo_list)).perform(click());
+        //openRepoListView();
 
         // Check if the list has two items ...
         final int[] counts = new int[1];
@@ -190,19 +161,7 @@ public class MainActivityTest {
 
     @Test
     public void showRepoDetailsAction() {
-
-        // Open the navigation drawer ...
-        onView(withId(R.id.drawer_layout)).perform(actionOpenDrawer());
-
-        // Just give 1 second for the drawer layout to open ...
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // Click on the navigation item repo list ...
-        onView(withText(R.string.nav_item_repo_list)).perform(click());
+        //openRepoListView();
 
         // Check if the list has two items ...
         final int[] counts = new int[1];
@@ -228,8 +187,22 @@ public class MainActivityTest {
         onView(withId(R.id.repoDetails)).check(matches(withText(MOCK_REPO_DETAILS_RESPONSE_MESSAGE)));
     }
 
+    @Test
+    public void showInformationAction() {
+        openWeatherView();
+
+        onView(withId(R.id.userNameText))
+                .perform(typeText(MOCK_NAME), closeSoftKeyboard());
+
+        onView(withId(R.id.cityText)).perform(clearText(), typeText(MOCK_PLACE), closeSoftKeyboard());
+
+        onView(withId(R.id.btnShowInfo)).perform(click());
+
+        onView(withId(R.id.resultView)).check(matches(withText(MOCK_INFO_RESPONSE_MESSAGE)));
+    }
+
     // This is a workaround to open navigation drawer since it is not supported OOB yet by Espresso!
-    private static ViewAction actionOpenDrawer() {
+    private ViewAction actionOpenDrawer() {
         return new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {
@@ -248,22 +221,33 @@ public class MainActivityTest {
         };
     }
 
-    private static ViewAction actionCloseDrawer() {
-        return new ViewAction() {
-            @Override
-            public Matcher<View> getConstraints() {
-                return isAssignableFrom(DrawerLayout.class);
-            }
+    private void openWeatherView() {
+        // Open the navigation drawer ...
+        onView(withId(R.id.drawer_layout)).perform(actionOpenDrawer());
 
-            @Override
-            public String getDescription() {
-                return "close drawer";
-            }
+        // Just give 1 second for the drawer layout to open ...
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            @Override
-            public void perform(UiController uiController, View view) {
-                ((DrawerLayout) view).closeDrawer(GravityCompat.START);
-            }
-        };
+        // Click on the navigation item repo list ...
+        onView(withText(R.string.nav_item_main)).perform(click());
+    }
+
+    private void openRepoListView() {
+        // Open the navigation drawer ...
+        onView(withId(R.id.drawer_layout)).perform(actionOpenDrawer());
+
+        // Just give 1 second for the drawer layout to open ...
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Click on the navigation item repo list ...
+        onView(withText(R.string.nav_item_repo_list)).perform(click());
     }
 }

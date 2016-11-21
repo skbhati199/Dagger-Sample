@@ -3,7 +3,7 @@ package com.test.xyz.daggersample.presenter;
 import com.test.xyz.daggersample.interactor.MainInteractor;
 import com.test.xyz.daggersample.presenter.details.OnRepoDetailsCompletedListener;
 import com.test.xyz.daggersample.presenter.list.OnRepoListCompletedListener;
-import com.test.xyz.daggersample.presenter.main.OnInfoCompletedListener;
+import com.test.xyz.daggersample.presenter.main.OnWeatherInfoCompletedListener;
 import com.test.xyz.daggersample.R;
 
 import org.mockito.invocation.InvocationOnMock;
@@ -70,35 +70,35 @@ public class BasePresenterTest {
         doAnswer(new Answer() {
             public Object answer(InvocationOnMock invocation) {
                 Object[] args = invocation.getArguments();
-                ((OnInfoCompletedListener) args[2]).onFailure("Invalid city provided!!!");
+                ((OnWeatherInfoCompletedListener) args[2]).onFailure("Invalid city provided!!!");
                 return null;
             }
-        }).when(mainInteractor).getInformation(anyString(), eq(INVALID_CITY), any(OnInfoCompletedListener.class));
+        }).when(mainInteractor).getWeatherInformation(anyString(), eq(INVALID_CITY), any(OnWeatherInfoCompletedListener.class));
 
         doAnswer(new Answer() {
             public Object answer(InvocationOnMock invocation) {
                 Object[] args = invocation.getArguments();
-                ((OnInfoCompletedListener) args[2]).onUserNameValidationError(R.string.username_empty_message);
+                ((OnWeatherInfoCompletedListener) args[2]).onUserNameValidationError(R.string.username_empty_message);
                 return null;
             }
-        }).when(mainInteractor).getInformation(eq(EMPTY_VALUE), eq(VALID_CITY), any(OnInfoCompletedListener.class));
+        }).when(mainInteractor).getWeatherInformation(eq(EMPTY_VALUE), eq(VALID_CITY), any(OnWeatherInfoCompletedListener.class));
 
         doAnswer(new Answer() {
             public Object answer(InvocationOnMock invocation) {
                 Object[] args = invocation.getArguments();
-                ((OnInfoCompletedListener) args[2]).onCityValidationError(R.string.city_empty_message);
+                ((OnWeatherInfoCompletedListener) args[2]).onCityValidationError(R.string.city_empty_message);
                 return null;
             }
-        }).when(mainInteractor).getInformation(anyString(), eq(EMPTY_VALUE), any(OnInfoCompletedListener.class));
+        }).when(mainInteractor).getWeatherInformation(anyString(), eq(EMPTY_VALUE), any(OnWeatherInfoCompletedListener.class));
 
         doAnswer(new Answer() {
             public Object answer(InvocationOnMock invocation) {
                 Object[] args = invocation.getArguments();
-                ((OnInfoCompletedListener) args[2]).onSuccess(MOCK_INFO_SUCCESS_MSG);
+                ((OnWeatherInfoCompletedListener) args[2]).onSuccess(MOCK_INFO_SUCCESS_MSG);
                 return null;
             }
-        }).when(mainInteractor).getInformation(not(eq(EMPTY_VALUE)),
+        }).when(mainInteractor).getWeatherInformation(not(eq(EMPTY_VALUE)),
                 and(not(eq(INVALID_CITY)), not(eq(EMPTY_VALUE))),
-                any(OnInfoCompletedListener.class));
+                any(OnWeatherInfoCompletedListener.class));
     }
 }

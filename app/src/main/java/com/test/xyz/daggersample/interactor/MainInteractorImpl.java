@@ -4,7 +4,7 @@ import android.support.annotation.VisibleForTesting;
 
 import com.test.xyz.daggersample.presenter.details.OnRepoDetailsCompletedListener;
 import com.test.xyz.daggersample.presenter.list.OnRepoListCompletedListener;
-import com.test.xyz.daggersample.presenter.main.OnInfoCompletedListener;
+import com.test.xyz.daggersample.presenter.main.OnWeatherInfoCompletedListener;
 import com.test.xyz.daggersample.service.api.HelloService;
 import com.test.xyz.daggersample.service.api.RepoListService;
 import com.test.xyz.daggersample.service.api.WeatherService;
@@ -40,7 +40,7 @@ public class MainInteractorImpl implements MainInteractor {
     }
 
     @Override
-    public void getInformation(final String userName, final String cityName, final OnInfoCompletedListener listener) {
+    public void getWeatherInformation(final String userName, final String cityName, final OnWeatherInfoCompletedListener listener) {
         final String greeting = helloService.greet(userName) + "\n";
 
         if (userName != null && userName.trim().equals("")) {

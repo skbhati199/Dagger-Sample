@@ -2,7 +2,7 @@ package com.test.xyz.daggersample.interactor;
 
 import com.test.xyz.daggersample.presenter.details.OnRepoDetailsCompletedListener;
 import com.test.xyz.daggersample.presenter.list.OnRepoListCompletedListener;
-import com.test.xyz.daggersample.presenter.main.OnInfoCompletedListener;
+import com.test.xyz.daggersample.presenter.main.OnWeatherInfoCompletedListener;
 import com.test.xyz.daggersample.service.api.ErrorMessages;
 import com.test.xyz.daggersample.service.api.HelloService;
 import com.test.xyz.daggersample.service.api.RepoListService;
@@ -45,7 +45,7 @@ public class MainInteractorTest {
     private static final String EMPTY_VALUE = "";
 
     @Mock
-    private OnInfoCompletedListener onInfoCompletedListener;
+    private OnWeatherInfoCompletedListener onInfoCompletedListener;
 
     @Mock
     private OnRepoListCompletedListener onRepoListCompletedListener;
@@ -77,7 +77,7 @@ public class MainInteractorTest {
             mockWeatherServiceCalls();
 
             //WHEN
-            mainInteractor.getInformation(USER_NAME, CITY, onInfoCompletedListener);
+            mainInteractor.getWeatherInformation(USER_NAME, CITY, onInfoCompletedListener);
 
             //THEN
             verify(onInfoCompletedListener, timeout(50)).onSuccess(any(String.class));
@@ -94,7 +94,7 @@ public class MainInteractorTest {
             mockWeatherServiceCalls();
 
             //WHEN
-            mainInteractor.getInformation(USER_NAME, INVALID_CITY, onInfoCompletedListener);
+            mainInteractor.getWeatherInformation(USER_NAME, INVALID_CITY, onInfoCompletedListener);
 
             //THEN
             verify(onInfoCompletedListener, timeout(50)).onFailure(any(String.class));
@@ -110,7 +110,7 @@ public class MainInteractorTest {
             mockWeatherServiceCalls();
 
             //WHEN
-            mainInteractor.getInformation("", CITY, onInfoCompletedListener);
+            mainInteractor.getWeatherInformation("", CITY, onInfoCompletedListener);
 
             //THEN
             verify(onInfoCompletedListener, timeout(50)).onUserNameValidationError(R.string.username_empty_message);
@@ -126,7 +126,7 @@ public class MainInteractorTest {
             mockWeatherServiceCalls();
 
             //WHEN
-            mainInteractor.getInformation(USER_NAME, "", onInfoCompletedListener);
+            mainInteractor.getWeatherInformation(USER_NAME, "", onInfoCompletedListener);
 
             //THEN
             verify(onInfoCompletedListener, timeout(50)).onCityValidationError(R.string.city_empty_message);

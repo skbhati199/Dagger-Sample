@@ -10,15 +10,6 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary">
 
-        <!--
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/ic_profile"
-            android:scaleType="fitCenter"
-            android:layout_centerInParent="true" />
-         -->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -57,7 +57,7 @@ public class RepoListServiceManager implements RepoListService {
                 .map(new Func1<Repo, String>() {
                     @Override
                     public String call(Repo repo) {
-                        return repo.name;
+                        return repo.description;
                     }
                 })
                 .subscribeOn(Schedulers.io())

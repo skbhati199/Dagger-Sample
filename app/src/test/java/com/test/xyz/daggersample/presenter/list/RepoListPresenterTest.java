@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RepoListPresenterTest extends BasePresenterTest {
-    private static final String USER_NAME = "hazems";
+    private static final String USER_NAME = "google";
     private static final String CITY = "New York, USA";
 
     private RepoListPresenter repoListPresenter;

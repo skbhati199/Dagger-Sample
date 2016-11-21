@@ -3,21 +3,21 @@ package com.test.xyz.daggersample.view.fragment.main;
 import com.test.xyz.daggersample.di.scope.ActivityScope;
 import com.test.xyz.daggersample.interactor.MainInteractor;
 import com.test.xyz.daggersample.interactor.MainInteractorImpl;
-import com.test.xyz.daggersample.presenter.main.MainPresenter;
-import com.test.xyz.daggersample.presenter.main.MainPresenterImpl;
+import com.test.xyz.daggersample.presenter.main.WeatherPresenter;
+import com.test.xyz.daggersample.presenter.main.WeatherPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class MainFragmentModule {
-    public MainFragmentModule(MainView view) {
+public class WeatherFragmentModule {
+    public WeatherFragmentModule(WeatherView view) {
         this.view = view;
     }
 
     @Provides
     @ActivityScope
-    MainView provideMainView() {
+    WeatherView provideMainView() {
         return this.view;
     }
 
@@ -29,9 +29,9 @@ public class MainFragmentModule {
 
     @Provides
     @ActivityScope
-    MainPresenter provideMainPresenter(MainPresenterImpl presenter) {
+    WeatherPresenter provideMainPresenter(WeatherPresenterImpl presenter) {
         return presenter;
     }
 
-    private final MainView view;
+    private final WeatherView view;
 }

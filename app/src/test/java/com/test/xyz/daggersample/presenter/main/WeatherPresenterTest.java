@@ -2,7 +2,7 @@ package com.test.xyz.daggersample.presenter.main;
 
 import com.test.xyz.daggersample.interactor.MainInteractor;
 import com.test.xyz.daggersample.presenter.BasePresenterTest;
-import com.test.xyz.daggersample.view.fragment.main.MainView;
+import com.test.xyz.daggersample.view.fragment.main.WeatherView;
 import com.test.xyz.daggersample.R;
 
 import org.junit.Before;
@@ -16,23 +16,23 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MainPresenterTest extends BasePresenterTest {
+public class WeatherPresenterTest extends BasePresenterTest {
     private static final String USER_NAME = "hazems";
 
-    private MainPresenter mainPresenter;
+    private WeatherPresenter mainPresenter;
 
     @Mock
     MainInteractor mainInteractor;
 
     @Mock
-    MainView mainView;
+    WeatherView mainView;
 
     @Before
     public void setup() {
         mockInteractor(mainInteractor);
 
         // Instantiate main object
-        mainPresenter = new MainPresenterImpl(mainView, mainInteractor);
+        mainPresenter = new WeatherPresenterImpl(mainView, mainInteractor);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class MainPresenterTest extends BasePresenterTest {
         when(mainView.getCityText()).thenReturn(VALID_CITY);
 
         //WHEN
-        mainPresenter.requestInformation();
+        mainPresenter.requestWeatherInformation();
 
         //THEN
         //TODO comment the next line to show how it work.
@@ -58,7 +58,7 @@ public class MainPresenterTest extends BasePresenterTest {
         when(mainView.getCityText()).thenReturn(VALID_CITY);
 
         //WHEN
-        mainPresenter.requestInformation();
+        mainPresenter.requestWeatherInformation();
 
         //THEN
         //TODO comment the next method to show how it work.
@@ -75,7 +75,7 @@ public class MainPresenterTest extends BasePresenterTest {
         when(mainView.getCityText()).thenReturn("");
 
         //WHEN
-        mainPresenter.requestInformation();
+        mainPresenter.requestWeatherInformation();
 
         //THEN
         //TODO comment the next method to show how it work.
@@ -92,7 +92,7 @@ public class MainPresenterTest extends BasePresenterTest {
         when(mainView.getCityText()).thenReturn(INVALID_CITY);
 
         //WHEN
-        mainPresenter.requestInformation();
+        mainPresenter.requestWeatherInformation();
 
         //THEN
         //TODO comment the next method to show how it work.

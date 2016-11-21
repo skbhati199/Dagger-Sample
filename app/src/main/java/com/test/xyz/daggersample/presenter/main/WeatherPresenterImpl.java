@@ -1,24 +1,24 @@
 package com.test.xyz.daggersample.presenter.main;
 
 import com.test.xyz.daggersample.interactor.MainInteractor;
-import com.test.xyz.daggersample.view.fragment.main.MainView;
+import com.test.xyz.daggersample.view.fragment.main.WeatherView;
 
 import javax.inject.Inject;
 
-public class MainPresenterImpl implements MainPresenter {
-    private MainView mainView;
+public class WeatherPresenterImpl implements WeatherPresenter {
+    private WeatherView mainView;
     private MainInteractor mainInteractor;
 
     @Inject
-    public MainPresenterImpl(MainView mainView, MainInteractor mainInteractor) {
+    public WeatherPresenterImpl(WeatherView mainView, MainInteractor mainInteractor) {
         this.mainView = mainView;
         this.mainInteractor = mainInteractor;
     }
 
     @Override
-    public void requestInformation() {
+    public void requestWeatherInformation() {
         mainView.showBusyIndicator();
-        mainInteractor.getInformation(mainView.getUserNameText(), mainView.getCityText(), this);
+        mainInteractor.getWeatherInformation(mainView.getUserNameText(), mainView.getCityText(), this);
     }
 
     @Override

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.test.xyz.daggersample.di.DaggerApplication;
 import com.test.xyz.daggersample.view.fragment.base.BaseFragment;
-import com.test.xyz.daggersample.presenter.main.MainPresenter;
+import com.test.xyz.daggersample.presenter.main.WeatherPresenter;
 import com.test.xyz.daggersample.R;
 import com.test.xyz.daggersample.view.util.CommonUtils;
 
@@ -22,11 +22,11 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainFragment extends BaseFragment implements MainView, View.OnClickListener {
-    private static String TAG = MainFragment.class.getName();
+public class WeatherFragment extends BaseFragment implements WeatherView, View.OnClickListener {
+    private static String TAG = WeatherFragment.class.getName();
 
     @Inject
-    MainPresenter presenter;
+    WeatherPresenter presenter;
 
     @InjectView(R.id.userNameText)
     EditText userNameText;
@@ -59,7 +59,7 @@ public class MainFragment extends BaseFragment implements MainView, View.OnClick
     protected void initializeFragment(Bundle savedInstanceState) {
         DaggerApplication.get(this.getContext())
                 .getAppComponent()
-                .plus(new MainFragmentModule(this))
+                .plus(new WeatherFragmentModule(this))
                 .inject(this);
 
         showInfoButton.setOnClickListener(this);
@@ -79,7 +79,7 @@ public class MainFragment extends BaseFragment implements MainView, View.OnClick
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnShowInfo) {
-            presenter.requestInformation();
+            presenter.requestWeatherInformation();
         }
     }
 
@@ -92,7 +92,7 @@ public class MainFragment extends BaseFragment implements MainView, View.OnClick
     public void onDestroy() {
         super.onDestroy();
 
-        Log.i(TAG, "MainFragment is destroyed ...");
+        Log.i(TAG, "WeatherFragment is destroyed ...");
     }
 
     @Override
@@ -162,7 +162,7 @@ public class MainFragment extends BaseFragment implements MainView, View.OnClick
         this.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CommonUtils.showDefaultAlert(MainFragment.this.getActivity(), error);
+                CommonUtils.showDefaultAlert(WeatherFragment.this.getActivity(), error);
             }
         });
     }

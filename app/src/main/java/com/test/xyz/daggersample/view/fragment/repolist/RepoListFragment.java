@@ -11,13 +11,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.test.xyz.daggersample.R;
 import com.test.xyz.daggersample.di.DaggerApplication;
+import com.test.xyz.daggersample.presenter.list.RepoListPresenter;
+import com.test.xyz.daggersample.service.api.model.Repo;
 import com.test.xyz.daggersample.view.activity.repodetails.RepoDetailsActivity;
 import com.test.xyz.daggersample.view.fragment.base.BaseFragment;
-import com.test.xyz.daggersample.presenter.list.RepoListPresenter;
 import com.test.xyz.daggersample.view.util.CommonConstants;
 import com.test.xyz.daggersample.view.util.CommonUtils;
-import com.test.xyz.daggersample.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     }
 
     @Override
-    public void showRepoList(final List<String> values) {
+    public void showRepoList(final List<Repo> values) {
         this.getActivity().runOnUiThread(new Runnable() {
 
             @Override
@@ -76,12 +77,14 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
             @Override
             public void run() {
                 CommonUtils.showToastMessage(RepoListFragment.this.getActivity(), errorMessage);
-                displayResults(new ArrayList<String>(){});
+                displayResults(new ArrayList<Repo>(){});
             }
         });
     }
 
-    private void displayResults(final List<String> values) {
+    private void displayResults(List<Repo> repos) {
+        final List<String> values = getRepoNameList(repos);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(RepoListFragment.this.getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
@@ -102,5 +105,15 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
             }
 
         });
+    }
+
+    private List<String> getRepoNameList(List<Repo> repos) {
+        final List<String> values = new ArrayList<>();
+
+        for (int i = 0; i < repos.size(); ++i) {
+            values.add(repos.get(i).name);
+        }
+
+        return values;
     }
 }

@@ -2,20 +2,24 @@ package com.test.xyz.daggersample.interactor;
 
 import android.support.annotation.VisibleForTesting;
 
+import com.google.common.base.Strings;
+import com.test.xyz.daggersample.R;
 import com.test.xyz.daggersample.presenter.details.OnRepoDetailsCompletedListener;
 import com.test.xyz.daggersample.presenter.list.OnRepoListCompletedListener;
 import com.test.xyz.daggersample.presenter.main.OnWeatherInfoCompletedListener;
 import com.test.xyz.daggersample.service.api.HelloService;
 import com.test.xyz.daggersample.service.api.RepoListService;
 import com.test.xyz.daggersample.service.api.WeatherService;
-import com.test.xyz.daggersample.service.exception.InvalidCityException;
-import com.test.xyz.daggersample.R;
+import com.test.xyz.daggersample.service.api.model.Repo;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainInteractorImpl implements MainInteractor {
     private static final String TAG = MainInteractorImpl.class.getName();
@@ -29,59 +33,64 @@ public class MainInteractorImpl implements MainInteractor {
     @Inject
     RepoListService repoListService;
 
+
     @Inject
     public MainInteractorImpl() {
     }
 
-    @VisibleForTesting MainInteractorImpl(HelloService helloService, WeatherService weatherService, RepoListService repoListService) {
+    @VisibleForTesting MainInteractorImpl(HelloService helloService, WeatherService weatherService,
+                                          RepoListService githubHttpService) {
+
         this.helloService = helloService;
         this.weatherService = weatherService;
-        this.repoListService = repoListService;
+        this.repoListService = githubHttpService;
     }
 
     @Override
     public void getWeatherInformation(final String userName, final String cityName, final OnWeatherInfoCompletedListener listener) {
         final String greeting = helloService.greet(userName) + "\n";
 
-        if (userName != null && userName.trim().equals("")) {
+        if (Strings.isNullOrEmpty(userName)) {
             listener.onUserNameValidationError(R.string.username_empty_message);
             return;
         }
 
-        if (cityName != null && cityName.trim().equals("")) {
+        if (Strings.isNullOrEmpty(cityName)) {
             listener.onCityValidationError(R.string.city_empty_message);
             return;
         }
 
-        //TODO refactor to RX Android ...
-        Thread thread = new Thread(new Runnable() {
+        weatherService.getWeatherInfo(cityName).subscribe(new Observer<Integer>() {
+            @Override
+            public void onCompleted() {
+            }
 
             @Override
-            public void run() {
-                try {
-                    int temperature = weatherService.getWeatherInfo(cityName);
-                    String temp = "Current weather in " + cityName + " is " + temperature + "°F";
+            public void onError(Throwable e) {
+                listener.onFailure(e.getMessage());
+            }
 
-                    listener.onSuccess(greeting + temp);
-                } catch (InvalidCityException ex) {
-                    listener.onFailure(ex.getMessage());
-                } catch (Exception ex) {
-                    listener.onFailure("Unable to get weather information");
-                }
+            @Override
+            public void onNext(Integer temperature) {
+                String temp = "Current weather in " + cityName + " is " + temperature + "°F";
+
+                listener.onSuccess(greeting + temp);
             }
         });
-
-        thread.start();
     }
 
     @Override
     public void getRepoList(final String userName, final OnRepoListCompletedListener listener) {
-        if (userName.equals("")) {
+        if (Strings.isNullOrEmpty(userName)) {
             listener.onRepoListRetrievalFailure("Username must be provided!");
             return;
         }
 
-        repoListService.retrieveRepoList(userName).subscribe(new Observer<List<String>>() {
+        Observable<List<Repo>> result = repoListService.getRepoList(userName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+        result.subscribe(new Observer<List<Repo>>() {
             @Override
             public void onCompleted() {
             }
@@ -92,7 +101,7 @@ public class MainInteractorImpl implements MainInteractor {
             }
 
             @Override
-            public void onNext(List<String> values) {
+            public void onNext(List<Repo> values) {
                 listener.onRepoListRetrievalSuccess(values);
             }
         });
@@ -100,12 +109,16 @@ public class MainInteractorImpl implements MainInteractor {
 
     @Override
     public void getRepoItemDetails(final String userName, final String projectID, final OnRepoDetailsCompletedListener listener) {
-        if (userName.equals("")) {
+        if (Strings.isNullOrEmpty(userName)) {
             listener.onRepoDetailsRetrievalFailure("Username must be provided!");
             return;
         }
 
-        repoListService.retrieveRepoItemDetails(userName, projectID).subscribe(new Observer<String>() {
+        Observable<Repo> result = repoListService.getRepoItemDetails(userName, projectID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+        result.subscribe(new Observer<Repo>() {
             @Override
             public void onCompleted() {
             }
@@ -116,8 +129,8 @@ public class MainInteractorImpl implements MainInteractor {
             }
 
             @Override
-            public void onNext(String value) {
-                listener.onRepoDetailsRetrievalSuccess(value);
+            public void onNext(Repo repo) {
+                listener.onRepoDetailsRetrievalSuccess(repo);
             }
         });
     }

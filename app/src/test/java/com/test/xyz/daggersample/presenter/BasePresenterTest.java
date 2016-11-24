@@ -1,10 +1,11 @@
 package com.test.xyz.daggersample.presenter;
 
+import com.test.xyz.daggersample.R;
 import com.test.xyz.daggersample.interactor.MainInteractor;
 import com.test.xyz.daggersample.presenter.details.OnRepoDetailsCompletedListener;
 import com.test.xyz.daggersample.presenter.list.OnRepoListCompletedListener;
 import com.test.xyz.daggersample.presenter.main.OnWeatherInfoCompletedListener;
-import com.test.xyz.daggersample.R;
+import com.test.xyz.daggersample.service.api.model.Repo;
 
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -42,7 +43,7 @@ public class BasePresenterTest {
         doAnswer(new Answer() {
             public Object answer(InvocationOnMock invocation) {
                 Object[] args = invocation.getArguments();
-                ((OnRepoDetailsCompletedListener) args[2]).onRepoDetailsRetrievalSuccess(any(String.class));
+                ((OnRepoDetailsCompletedListener) args[2]).onRepoDetailsRetrievalSuccess(any(Repo.class));
                 return null;
             }
         }).when(mainInteractor).getRepoItemDetails(not(eq(EMPTY_VALUE)), any(String.class), any(OnRepoDetailsCompletedListener.class));

@@ -6,8 +6,9 @@ import android.widget.TextView;
 
 import com.test.xyz.daggersample.R;
 import com.test.xyz.daggersample.di.DaggerApplication;
-import com.test.xyz.daggersample.view.activity.base.BaseActivity;
 import com.test.xyz.daggersample.presenter.details.RepoDetailsPresenter;
+import com.test.xyz.daggersample.service.api.model.Repo;
+import com.test.xyz.daggersample.view.activity.base.BaseActivity;
 import com.test.xyz.daggersample.view.util.CommonConstants;
 import com.test.xyz.daggersample.view.util.CommonUtils;
 
@@ -51,13 +52,13 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
     }
 
     @Override
-    public void showRepoDetails(final String description) {
+    public void showRepoDetails(final Repo repo) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 endProgress();
                 repoTitle.setText(repoItemTitle);
-                repoDetails.setText(description);
+                repoDetails.setText(repo.description);
             }
         });
     }

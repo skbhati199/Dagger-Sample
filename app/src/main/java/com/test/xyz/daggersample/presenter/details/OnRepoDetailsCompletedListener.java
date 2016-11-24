@@ -1,6 +1,8 @@
 package com.test.xyz.daggersample.presenter.details;
 
+import com.test.xyz.daggersample.service.api.model.Repo;
+
 public interface OnRepoDetailsCompletedListener {
-    public void onRepoDetailsRetrievalSuccess(String data);
-    public void onRepoDetailsRetrievalFailure(String errorMessage);
+    void onRepoDetailsRetrievalSuccess(Repo data);
+    void onRepoDetailsRetrievalFailure(String errorMessage);
 }

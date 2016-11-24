@@ -1,7 +1,7 @@
 package com.test.xyz.daggersample.service.api;
 
-import com.test.xyz.daggersample.service.exception.InvalidCityException;
+import rx.Observable;
 
 public interface WeatherService {
-    int getWeatherInfo(String city) throws InvalidCityException;
+    Observable<Integer> getWeatherInfo(String city);
 }

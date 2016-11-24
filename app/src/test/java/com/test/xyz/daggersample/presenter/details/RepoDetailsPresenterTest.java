@@ -1,8 +1,9 @@
 package com.test.xyz.daggersample.presenter.details;
 
 import com.test.xyz.daggersample.interactor.MainInteractor;
-import com.test.xyz.daggersample.view.activity.repodetails.RepoDetailsView;
 import com.test.xyz.daggersample.presenter.BasePresenterTest;
+import com.test.xyz.daggersample.service.api.model.Repo;
+import com.test.xyz.daggersample.view.activity.repodetails.RepoDetailsView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +43,7 @@ public class RepoDetailsPresenterTest  extends BasePresenterTest {
         repoDetailsPresenter.requestRepoDetails(USER_NAME, PROJECT_ID);
 
         //THEN
-        verify(repoDetailsView).showRepoDetails(Matchers.any(String.class));
+        verify(repoDetailsView).showRepoDetails(Matchers.any(Repo.class));
         verify(repoDetailsView, never()).showError(Matchers.any(String.class));
     }
 
@@ -55,7 +56,7 @@ public class RepoDetailsPresenterTest  extends BasePresenterTest {
         repoDetailsPresenter.requestRepoDetails("", PROJECT_ID);
 
         //THEN
-        verify(repoDetailsView, never()).showRepoDetails(Matchers.any(String.class));
+        verify(repoDetailsView, never()).showRepoDetails(Matchers.any(Repo.class));
         verify(repoDetailsView).showError(Matchers.any(String.class));
     }
 }

@@ -2,9 +2,9 @@ package com.test.xyz.daggersample.service.impl;
 
 import android.util.Log;
 
-import com.test.xyz.daggersample.service.exception.InvalidCityException;
 import com.test.xyz.daggersample.service.api.ErrorMessages;
 import com.test.xyz.daggersample.service.api.WeatherService;
+import com.test.xyz.daggersample.service.exception.InvalidCityException;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -14,22 +14,43 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+/**
+ * WeatherServiceManager interacts with yahooapis weather service using Java.net.URL connection
+ * (Another example of HTTP interaction other than Retrofit).
+ * I definitely recommend using Retrofit but I would like another way here.
+ */
 public class WeatherServiceManager implements WeatherService {
     private static final String TAG = WeatherServiceManager.class.getName();
 
     @Override
-    public int getWeatherInfo(String city) throws InvalidCityException {
-        int temperature = 0;
+    public Observable<Integer> getWeatherInfo(final String city) {
 
-        if (city == null) {
-            throw new RuntimeException(ErrorMessages.CITY_REQUIRED);
-        }
+        Observable observable = Observable.create(new Observable.OnSubscribe<Integer>() {
+            @Override
+            public void call(Subscriber<? super Integer> subscriber) {
+                try {
+                    String encodedCity = encodeCity(city);
 
-        try {
-            city = URLEncoder.encode(city, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(ErrorMessages.INVALID_CITY_PROVIDED);
-        }
+                    Integer temperature = getTemperature(encodedCity);
+
+                    subscriber.onNext(temperature);
+                    subscriber.onCompleted();
+                } catch (Exception e) {
+                    subscriber.onError(e);
+                }
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+
+        return observable;
+    }
+
+    private int getTemperature(String city) throws InvalidCityException {
+        int temperature;
 
         try {
             URL url = new URL("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22" + city + "%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys");
@@ -42,6 +63,10 @@ public class WeatherServiceManager implements WeatherService {
 
             // Receive response ...
             int responseCode = httpURLConnection.getResponseCode();
+
+            if (responseCode >= 400) {
+                throw new Exception(ErrorMessages.HTTP_ERROR);
+            }
 
             InputStream is = httpURLConnection.getInputStream();
             InputStreamReader reader = new InputStreamReader(is);
@@ -74,5 +99,19 @@ public class WeatherServiceManager implements WeatherService {
         }
 
         return temperature;
+    }
+
+    private String encodeCity(String city) {
+        if (city == null || city.trim().equals("")) {
+            throw new RuntimeException(ErrorMessages.CITY_REQUIRED);
+        }
+
+        try {
+            city = URLEncoder.encode(city, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(ErrorMessages.INVALID_CITY_PROVIDED);
+        }
+
+        return city;
     }
 }

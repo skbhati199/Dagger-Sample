@@ -1,6 +1,7 @@
 package com.test.xyz.daggersample.presenter.details;
 
 import com.test.xyz.daggersample.interactor.MainInteractor;
+import com.test.xyz.daggersample.service.api.model.Repo;
 import com.test.xyz.daggersample.view.activity.repodetails.RepoDetailsView;
 
 import javax.inject.Inject;
@@ -21,7 +22,7 @@ public class RepoDetailsPresenterImpl implements RepoDetailsPresenter {
     }
 
     @Override
-    public void onRepoDetailsRetrievalSuccess(String data) {
+    public void onRepoDetailsRetrievalSuccess(Repo data) {
         repoDetailsView.showRepoDetails(data);
     }
 

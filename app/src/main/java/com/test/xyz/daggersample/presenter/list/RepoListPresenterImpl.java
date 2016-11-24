@@ -1,6 +1,7 @@
 package com.test.xyz.daggersample.presenter.list;
 
 import com.test.xyz.daggersample.interactor.MainInteractor;
+import com.test.xyz.daggersample.service.api.model.Repo;
 import com.test.xyz.daggersample.view.fragment.repolist.RepoListView;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class RepoListPresenterImpl implements RepoListPresenter, OnRepoListCompl
     }
 
     @Override
-    public void onRepoListRetrievalSuccess(List<String> data) {
+    public void onRepoListRetrievalSuccess(List<Repo> data) {
         repoListView.showRepoList(data);
     }
 

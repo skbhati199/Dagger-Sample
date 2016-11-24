@@ -31,4 +31,11 @@ public class Repo {
     public int open_issues;
     public int watchers;
     public String default_branch;
+
+    public Repo() {
+    }
+
+    public Repo(String name) {
+        this.name = name;
+    }
 }

@@ -1,7 +1,7 @@
 package com.test.xyz.daggersample.presenter.main;
 
 import com.test.xyz.daggersample.interactor.MainInteractor;
-import com.test.xyz.daggersample.view.fragment.main.WeatherView;
+import com.test.xyz.daggersample.view.fragment.weather.WeatherView;
 
 import javax.inject.Inject;
 

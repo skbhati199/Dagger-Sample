@@ -62,25 +62,13 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
 
     @Override
     public void showRepoList(final List<Repo> values) {
-        this.getActivity().runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-                displayResults(values);
-            }
-        });
+        displayResults(values);
     }
 
     @Override
     public void showError(final String errorMessage) {
-        this.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                CommonUtils.showToastMessage(RepoListFragment.this.getActivity(), errorMessage);
-                displayResults(new ArrayList<Repo>() {
-                });
-            }
-        });
+         CommonUtils.showToastMessage(RepoListFragment.this.getActivity(), errorMessage);
+         displayResults(new ArrayList<Repo>() {});
     }
 
     private void displayResults(List<Repo> repos) {

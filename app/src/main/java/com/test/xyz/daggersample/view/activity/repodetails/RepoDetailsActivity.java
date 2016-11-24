@@ -53,26 +53,16 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
 
     @Override
     public void showRepoDetails(final Repo repo) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                endProgress();
-                repoTitle.setText(repoItemTitle);
-                repoDetails.setText(repo.description);
-            }
-        });
+        endProgress();
+        repoTitle.setText(repoItemTitle);
+        repoDetails.setText(repo.description);
     }
 
     @Override
     public void showError(final String errorMessage) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                endProgress();
-                CommonUtils.showToastMessage(RepoDetailsActivity.this, errorMessage);
-                repoDetails.setText(R.string.repo_details_ret_error);
-            }
-        });
+        endProgress();
+        CommonUtils.showToastMessage(RepoDetailsActivity.this, errorMessage);
+        repoDetails.setText(R.string.repo_details_ret_error);
     }
 
     @Override

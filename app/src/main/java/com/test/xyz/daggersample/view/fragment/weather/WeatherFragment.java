@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample.view.fragment.main;
+package com.test.xyz.daggersample.view.fragment.weather;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -107,63 +107,31 @@ public class WeatherFragment extends BaseFragment implements WeatherView, View.O
 
     @Override
     public void showUserNameError(final int messageId) {
-        this.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                userNameText.setError(getString(messageId));
-            }
-        });
+        userNameText.setError(getString(messageId));
     }
 
     @Override
     public void showCityNameError(final int messageId) {
-        this.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                cityText.setError(getString(messageId));
-            }
-        });
-
+        cityText.setError(getString(messageId));
     }
 
     @Override
     public void showBusyIndicator() {
-
-        this.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.VISIBLE);
-            }
-        });
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideBusyIndicator() {
-        this.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showResult(final String result) {
-        this.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                resultView.setText(result);
-            }
-        });
+        resultView.setText(result);
     }
 
     @Override
     public void showError(final String error) {
-        this.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                CommonUtils.showDefaultAlert(WeatherFragment.this.getActivity(), error);
-            }
-        });
+        CommonUtils.showDefaultAlert(WeatherFragment.this.getActivity(), error);
     }
 }

@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample.view.fragment.main;
+package com.test.xyz.daggersample.view.fragment.weather;
 
 import com.test.xyz.daggersample.di.scope.ActivityScope;
 import com.test.xyz.daggersample.interactor.MainInteractor;

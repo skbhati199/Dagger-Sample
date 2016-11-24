@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample.view.fragment.main;
+package com.test.xyz.daggersample.view.fragment.weather;
 
 public interface WeatherView {
     String getUserNameText();

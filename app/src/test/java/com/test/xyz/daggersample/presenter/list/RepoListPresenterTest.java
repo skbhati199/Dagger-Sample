@@ -20,7 +20,6 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class RepoListPresenterTest extends BasePresenterTest {
     private static final String USER_NAME = "google";
-    private static final String CITY = "New York, USA";
 
     private RepoListPresenter repoListPresenter;
 
@@ -61,7 +60,4 @@ public class RepoListPresenterTest extends BasePresenterTest {
         verify(repoListView, never()).showRepoList(Matchers.any(List.class));
         verify(repoListView, times(1)).showError(Matchers.any(String.class));
     }
-
-    private String result;
-    private String error;
 }

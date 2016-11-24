@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <fragment class="com.test.xyz.daggersample.view.fragment.main.WeatherFragment"
+            <fragment class="com.test.xyz.daggersample.view.fragment.weather.WeatherFragment"
                 android:id="@+id/main_frag"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

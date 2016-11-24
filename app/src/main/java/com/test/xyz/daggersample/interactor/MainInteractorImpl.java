@@ -32,7 +32,6 @@ public class MainInteractorImpl implements MainInteractor {
     @Inject
     RepoListService repoListService;
 
-
     @Inject
     public MainInteractorImpl() {
     }
@@ -100,8 +99,8 @@ public class MainInteractorImpl implements MainInteractor {
                     }
 
                     @Override
-                    public void onNext(List<Repo> values) {
-                        listener.onRepoListRetrievalSuccess(values);
+                    public void onNext(List<Repo> repoList) {
+                        listener.onRepoListRetrievalSuccess(repoList);
                     }
                 });
     }

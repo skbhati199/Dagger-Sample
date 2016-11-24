@@ -77,7 +77,8 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
             @Override
             public void run() {
                 CommonUtils.showToastMessage(RepoListFragment.this.getActivity(), errorMessage);
-                displayResults(new ArrayList<Repo>(){});
+                displayResults(new ArrayList<Repo>() {
+                });
             }
         });
     }

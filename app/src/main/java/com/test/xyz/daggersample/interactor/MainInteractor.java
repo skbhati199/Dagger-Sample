@@ -6,6 +6,8 @@ import com.test.xyz.daggersample.presenter.main.OnWeatherInfoCompletedListener;
 
 public interface MainInteractor {
     void getWeatherInformation(String userName, String cityName, final OnWeatherInfoCompletedListener listener);
+
     void getRepoList(String userName, final OnRepoListCompletedListener listener);
+
     void getRepoItemDetails(String userName, String projectID, final OnRepoDetailsCompletedListener listener);
 }

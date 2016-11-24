@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface RepoListView {
     void showRepoList(List<Repo> values);
+
     void showError(final String errorMessage);
 }

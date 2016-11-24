@@ -3,6 +3,7 @@ package com.test.xyz.daggersample.service.api;
 import com.test.xyz.daggersample.service.api.model.Repo;
 
 import java.util.List;
+
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;

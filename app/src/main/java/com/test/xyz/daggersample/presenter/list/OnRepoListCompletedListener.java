@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface OnRepoListCompletedListener {
     void onRepoListRetrievalSuccess(List<Repo> data);
+
     void onRepoListRetrievalFailure(String errorMessage);
 }

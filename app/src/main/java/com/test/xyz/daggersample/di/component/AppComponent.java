@@ -18,6 +18,8 @@ import dagger.Component;
 public interface AppComponent {
 
     WeatherFragmentComponent plus(WeatherFragmentModule module);
+
     RepoListFragmentComponent plus(RepoListFragmentModule module);
+
     RepoDetailsActivityComponent plus(RepoDetailsActivityModule module);
 }

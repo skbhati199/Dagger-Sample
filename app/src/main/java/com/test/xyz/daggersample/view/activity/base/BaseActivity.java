@@ -43,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.e(TAG, "Base:onOptionsItemSelected() is called ...");
 
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 break;

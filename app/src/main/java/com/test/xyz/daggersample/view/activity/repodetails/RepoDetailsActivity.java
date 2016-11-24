@@ -40,8 +40,8 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
         Log.i(TAG, "Getting custom component inside RepoDetailsActivity");
 
         DaggerApplication.get(this).getAppComponent()
-                                   .plus(new RepoDetailsActivityModule(this))
-                                   .inject(this);
+                .plus(new RepoDetailsActivityModule(this))
+                .inject(this);
 
         startProgress();
 

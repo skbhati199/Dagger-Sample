@@ -16,7 +16,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -38,12 +37,13 @@ public class MainInteractorImpl implements MainInteractor {
     public MainInteractorImpl() {
     }
 
-    @VisibleForTesting MainInteractorImpl(HelloService helloService, WeatherService weatherService,
-                                          RepoListService githubHttpService) {
+    @VisibleForTesting
+    MainInteractorImpl(HelloService helloService, WeatherService weatherService,
+                       RepoListService repoListService) {
 
         this.helloService = helloService;
         this.weatherService = weatherService;
-        this.repoListService = githubHttpService;
+        this.repoListService = repoListService;
     }
 
     @Override
@@ -86,25 +86,24 @@ public class MainInteractorImpl implements MainInteractor {
             return;
         }
 
-        Observable<List<Repo>> result = repoListService.getRepoList(userName)
+        repoListService.getRepoList(userName)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Repo>>() {
+                    @Override
+                    public void onCompleted() {
+                    }
 
-        result.subscribe(new Observer<List<Repo>>() {
-            @Override
-            public void onCompleted() {
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.onRepoListRetrievalFailure("Unable to get repo items: " + e.getMessage());
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                listener.onRepoListRetrievalFailure("Unable to get repo items: " + e.getMessage());
-            }
-
-            @Override
-            public void onNext(List<Repo> values) {
-                listener.onRepoListRetrievalSuccess(values);
-            }
-        });
+                    @Override
+                    public void onNext(List<Repo> values) {
+                        listener.onRepoListRetrievalSuccess(values);
+                    }
+                });
     }
 
     @Override
@@ -114,24 +113,23 @@ public class MainInteractorImpl implements MainInteractor {
             return;
         }
 
-        Observable<Repo> result = repoListService.getRepoItemDetails(userName, projectID)
+        repoListService.getRepoItemDetails(userName, projectID)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Repo>() {
+                    @Override
+                    public void onCompleted() {
+                    }
 
-        result.subscribe(new Observer<Repo>() {
-            @Override
-            public void onCompleted() {
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.onRepoDetailsRetrievalFailure("Unable to get repo item details: " + e.getMessage());
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                listener.onRepoDetailsRetrievalFailure("Unable to get repo item details: " + e.getMessage());
-            }
-
-            @Override
-            public void onNext(Repo repo) {
-                listener.onRepoDetailsRetrievalSuccess(repo);
-            }
-        });
+                    @Override
+                    public void onNext(Repo repo) {
+                        listener.onRepoDetailsRetrievalSuccess(repo);
+                    }
+                });
     }
 }

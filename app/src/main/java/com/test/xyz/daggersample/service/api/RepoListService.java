@@ -1,10 +1,17 @@
 package com.test.xyz.daggersample.service.api;
 
-import java.util.List;
+import com.test.xyz.daggersample.service.api.model.Repo;
 
+import java.util.List;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 import rx.Observable;
 
 public interface RepoListService {
-    Observable<List<String>> retrieveRepoList(String userName);
-    Observable<String> retrieveRepoItemDetails(String userName, String projectID);
+
+    @GET("users/{user}/repos")
+    Observable<List<Repo>> getRepoList(@Path("user") String user);
+
+    @GET("/repos/{user}/{reponame}")
+    Observable<Repo> getRepoItemDetails(@Path("user") String user, @Path("reponame") String repoName);
 }

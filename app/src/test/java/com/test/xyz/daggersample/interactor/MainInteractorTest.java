@@ -258,16 +258,16 @@ public class MainInteractorTest {
         when(weatherService.getWeatherInfo(and(not(eq(EMPTY_VALUE)), not(eq(INVALID_CITY))))).thenReturn(observable);
 
         // Empty City ...
-        when(weatherService.getWeatherInfo(eq(EMPTY_VALUE))).
-                thenReturn(Observable.error(
-                        new RuntimeException(ErrorMessages.CITY_REQUIRED)).
-                        cast(Integer.class));
+        when(weatherService.getWeatherInfo(eq(EMPTY_VALUE)))
+                .thenReturn(Observable.error(
+                        new RuntimeException(ErrorMessages.CITY_REQUIRED))
+                        .cast(Integer.class));
 
         // Invalid City ...
-        when(weatherService.getWeatherInfo(eq(INVALID_CITY))).
-                thenReturn(Observable.error(
-                        new InvalidCityException(ErrorMessages.INVALID_CITY_PROVIDED)).
-                        cast(Integer.class));
+        when(weatherService.getWeatherInfo(eq(INVALID_CITY)))
+                .thenReturn(Observable.error(
+                        new InvalidCityException(ErrorMessages.INVALID_CITY_PROVIDED))
+                        .cast(Integer.class));
     }
 
     private void mockGetRepoListAPI() {
@@ -278,10 +278,9 @@ public class MainInteractorTest {
         when(repoListService.getRepoList(not(eq(UNLUCKY_ACCOUNT)))).thenReturn(observable);
 
         // Error Scenario ...
-        when(repoListService.getRepoList(eq(UNLUCKY_ACCOUNT))).
-                thenReturn(Observable.error(
-                        new IOException("Invalid account")).
-                        cast((Class) List.class));
+        when(repoListService.getRepoList(eq(UNLUCKY_ACCOUNT)))
+                .thenReturn(Observable.error(new IOException("Invalid account"))
+                        .cast((Class) List.class));
     }
 
     private void mockGetRepoItemDetailsAPI() {
@@ -292,10 +291,10 @@ public class MainInteractorTest {
         when(repoListService.getRepoItemDetails(not(eq(UNLUCKY_ACCOUNT)), anyString())).thenReturn(observable);
 
         // Error Scenario ...
-        when(repoListService.getRepoItemDetails(eq(UNLUCKY_ACCOUNT), anyString())).
-                thenReturn(Observable.error(
-                        new IOException("Invalid account")).
-                        cast((Class) List.class));
+        when(repoListService.getRepoItemDetails(eq(UNLUCKY_ACCOUNT), anyString()))
+                .thenReturn(Observable.error(
+                        new IOException("Invalid account"))
+                        .cast((Class) List.class));
     }
 
 }

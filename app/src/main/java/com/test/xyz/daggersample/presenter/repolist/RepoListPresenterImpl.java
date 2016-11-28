@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample.presenter.list;
+package com.test.xyz.daggersample.presenter.repolist;
 
 import com.test.xyz.daggersample.interactor.MainInteractor;
 import com.test.xyz.daggersample.service.api.model.Repo;

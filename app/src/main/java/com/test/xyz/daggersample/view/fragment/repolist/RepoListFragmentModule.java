@@ -3,8 +3,8 @@ package com.test.xyz.daggersample.view.fragment.repolist;
 import com.test.xyz.daggersample.di.scope.ActivityScope;
 import com.test.xyz.daggersample.interactor.MainInteractor;
 import com.test.xyz.daggersample.interactor.MainInteractorImpl;
-import com.test.xyz.daggersample.presenter.list.RepoListPresenter;
-import com.test.xyz.daggersample.presenter.list.RepoListPresenterImpl;
+import com.test.xyz.daggersample.presenter.repolist.RepoListPresenter;
+import com.test.xyz.daggersample.presenter.repolist.RepoListPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;

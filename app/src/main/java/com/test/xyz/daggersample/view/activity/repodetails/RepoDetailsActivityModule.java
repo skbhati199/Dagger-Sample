@@ -1,10 +1,10 @@
 package com.test.xyz.daggersample.view.activity.repodetails;
 
-import com.test.xyz.daggersample.presenter.details.RepoDetailsPresenter;
+import com.test.xyz.daggersample.presenter.repodetails.RepoDetailsPresenter;
 import com.test.xyz.daggersample.di.scope.ActivityScope;
 import com.test.xyz.daggersample.interactor.MainInteractor;
 import com.test.xyz.daggersample.interactor.MainInteractorImpl;
-import com.test.xyz.daggersample.presenter.details.RepoDetailsPresenterImpl;
+import com.test.xyz.daggersample.presenter.repodetails.RepoDetailsPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;

@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.test.xyz.daggersample.R;
 import com.test.xyz.daggersample.di.DaggerApplication;
-import com.test.xyz.daggersample.presenter.details.RepoDetailsPresenter;
+import com.test.xyz.daggersample.presenter.repodetails.RepoDetailsPresenter;
 import com.test.xyz.daggersample.service.api.model.Repo;
 import com.test.xyz.daggersample.view.activity.base.BaseActivity;
 import com.test.xyz.daggersample.view.util.CommonConstants;

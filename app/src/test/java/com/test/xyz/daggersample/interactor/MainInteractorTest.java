@@ -1,9 +1,9 @@
 package com.test.xyz.daggersample.interactor;
 
 import com.test.xyz.daggersample.R;
-import com.test.xyz.daggersample.presenter.details.OnRepoDetailsCompletedListener;
-import com.test.xyz.daggersample.presenter.list.OnRepoListCompletedListener;
-import com.test.xyz.daggersample.presenter.main.OnWeatherInfoCompletedListener;
+import com.test.xyz.daggersample.presenter.repodetails.OnRepoDetailsCompletedListener;
+import com.test.xyz.daggersample.presenter.repolist.OnRepoListCompletedListener;
+import com.test.xyz.daggersample.presenter.weather.OnWeatherInfoCompletedListener;
 import com.test.xyz.daggersample.service.api.ErrorMessages;
 import com.test.xyz.daggersample.service.api.HelloService;
 import com.test.xyz.daggersample.service.api.RepoListService;

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.test.xyz.daggersample.R;
 import com.test.xyz.daggersample.di.DaggerApplication;
-import com.test.xyz.daggersample.presenter.list.RepoListPresenter;
+import com.test.xyz.daggersample.presenter.repolist.RepoListPresenter;
 import com.test.xyz.daggersample.service.api.model.Repo;
 import com.test.xyz.daggersample.view.activity.repodetails.RepoDetailsActivity;
 import com.test.xyz.daggersample.view.fragment.base.BaseFragment;

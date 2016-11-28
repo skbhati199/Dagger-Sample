@@ -1,6 +1,8 @@
 package com.test.xyz.daggersample.presenter.list;
 
 import com.test.xyz.daggersample.interactor.MainInteractor;
+import com.test.xyz.daggersample.presenter.repolist.RepoListPresenter;
+import com.test.xyz.daggersample.presenter.repolist.RepoListPresenterImpl;
 import com.test.xyz.daggersample.view.fragment.repolist.RepoListView;
 import com.test.xyz.daggersample.presenter.BasePresenterTest;
 

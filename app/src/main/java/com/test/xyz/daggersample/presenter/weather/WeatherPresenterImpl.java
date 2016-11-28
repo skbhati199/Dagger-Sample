@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample.presenter.main;
+package com.test.xyz.daggersample.presenter.weather;
 
 import com.test.xyz.daggersample.interactor.MainInteractor;
 import com.test.xyz.daggersample.view.fragment.weather.WeatherView;

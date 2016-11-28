@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample.presenter.main;
+package com.test.xyz.daggersample.presenter.weather;
 
 public interface OnWeatherInfoCompletedListener {
     void onUserNameValidationError(int messageID);

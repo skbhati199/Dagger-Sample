@@ -3,8 +3,8 @@ package com.test.xyz.daggersample.view.fragment.weather;
 import com.test.xyz.daggersample.di.scope.ActivityScope;
 import com.test.xyz.daggersample.interactor.MainInteractor;
 import com.test.xyz.daggersample.interactor.MainInteractorImpl;
-import com.test.xyz.daggersample.presenter.main.WeatherPresenter;
-import com.test.xyz.daggersample.presenter.main.WeatherPresenterImpl;
+import com.test.xyz.daggersample.presenter.weather.WeatherPresenter;
+import com.test.xyz.daggersample.presenter.weather.WeatherPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;

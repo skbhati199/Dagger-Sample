@@ -2,9 +2,9 @@ package com.test.xyz.daggersample.presenter;
 
 import com.test.xyz.daggersample.R;
 import com.test.xyz.daggersample.interactor.MainInteractor;
-import com.test.xyz.daggersample.presenter.details.OnRepoDetailsCompletedListener;
-import com.test.xyz.daggersample.presenter.list.OnRepoListCompletedListener;
-import com.test.xyz.daggersample.presenter.main.OnWeatherInfoCompletedListener;
+import com.test.xyz.daggersample.presenter.repodetails.OnRepoDetailsCompletedListener;
+import com.test.xyz.daggersample.presenter.repolist.OnRepoListCompletedListener;
+import com.test.xyz.daggersample.presenter.weather.OnWeatherInfoCompletedListener;
 import com.test.xyz.daggersample.service.api.model.Repo;
 
 import org.mockito.invocation.InvocationOnMock;

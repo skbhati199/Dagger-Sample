@@ -1,4 +1,4 @@
-package com.test.xyz.daggersample.presenter.details;
+package com.test.xyz.daggersample.presenter.repodetails;
 
 import com.test.xyz.daggersample.service.api.model.Repo;
 

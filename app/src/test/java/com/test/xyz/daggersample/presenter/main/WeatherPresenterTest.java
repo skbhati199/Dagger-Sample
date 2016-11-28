@@ -2,6 +2,8 @@ package com.test.xyz.daggersample.presenter.main;
 
 import com.test.xyz.daggersample.interactor.MainInteractor;
 import com.test.xyz.daggersample.presenter.BasePresenterTest;
+import com.test.xyz.daggersample.presenter.weather.WeatherPresenter;
+import com.test.xyz.daggersample.presenter.weather.WeatherPresenterImpl;
 import com.test.xyz.daggersample.view.fragment.weather.WeatherView;
 import com.test.xyz.daggersample.R;
 
